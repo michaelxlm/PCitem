@@ -1,0 +1,61 @@
+/*
+*
+*动画效果
+*
+*/
+
+/*--------------心跳样式---------------*/
+.Heartbeat {
+    margin: 50px;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    background-color: red;
+    animation-direction: alternate;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-name: buzz-out;
+    -webkit-animation-duration: 0.08s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+}
+
+.Heartbeat:after, .Heartbeat:before {
+    position: absolute;
+    content: '';
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.Heartbeat:after {
+    top: -25px;
+}
+
+.Heartbeat:before {
+    left: -25px;
+}
+
+@keyframes buzz-out {
+    0% {
+        transform: scale(1, 1) rotate(45deg);
+        -webkit-transform: scale(1, 1) rotate(45deg);
+    }
+    100% {
+        transform: scale(1.25, 1.25) rotate(45deg);
+        -webkit-transform: scale(1.25, 1.25) rotate(45deg);
+    }
+}
+
+@-webkit-keyframes buzz-out {
+    0% {
+        transform: scale(1, 1) rotate(45deg);
+        -webkit-transform: scale(1, 1) rotate(45deg);
+    }
+    100% {
+        transform: scale(1.25, 1.25) rotate(45deg);
+        -webkit-transform: scale(1.25, 1.25) rotate(45deg);
+    }
+}

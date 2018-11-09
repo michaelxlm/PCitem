@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div{
+            margin: 50px;
+        }
+        .content_wrapper .div-right {
+            border-bottom: 1px solid #f00;
+        }
+
+        .content_wrapper a:last-child .dd {
+            border-bottom: 1px solid blue;
+        }
+
+        .content_wrapper a:last-child .div-right {
+            border: none!important;
+        }
+        .div-right{
+            border: 1px solid #ededed;
+        }
+        .div1{
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+        }
+        .div1:last-child{
+            background-color: red;
+        }
+    </style>
+    <title>Title</title>
+</head>
+<body>
+<div style="width: 30px;height: 30px;border-radius: 100%;padding: 30px;
+background-color:#f4f4f4;">
+    <img src="icon_arrow-last@2x.png" style="width: 30px;height: 30px;"/>
+</div>
+<div style="width: 30px;height: 30px;border-radius: 100%;padding: 30px;
+background-color:#f4f4f4;">
+    <img src="icon_arrow-next@2x.png" style="width: 30px;height: 30px;"/>
+</div>
+<div style="width: 100px;height: 100px;box-shadow: 0 -10px 0 -4px #eef3f3;border-radius: 10px;background-color: blue;"></div>
+<div class="content_wrapper">
+    <a href="">
+        <div class="dd">
+            <div class="div-left">sss</div>
+            <div class="div-right">ssss</div>
+        </div>
+    </a>
+
+    <a href="">
+        <div class="dd">
+            <div class="div-left">sssss</div>
+            <div class="div-right">sssss</div>
+        </div>
+    </a>
+
+    <a href="">
+        <div class="dd">
+            <div class="div-left">sssss</div>
+            <div class="div-right">sssss</div>
+        </div>
+    </a>
+</div>
+<div class="div1"></div>
+<div class="div1"></div>
+<div class="div1"></div>
+<div class="div1"></div>
+<div class="div1"></div>
+<div class="div1"></div>
+
+
+
+
+</body>
+</html>

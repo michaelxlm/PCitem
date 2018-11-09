@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>滑动页面</title>
+    <style>
+        .scrollDiv {
+            margin: 0;
+            background-color: green;
+            padding: 0;
+        }
+
+        .scrollTitle {
+
+        }
+    </style>
+</head>
+<body>
+<div class="scrollTitle">
+    当前页数
+</div>
+<div class="scrollDiv">
+    <ul id="listUl">
+    </ul>
+</div>
+<script type="text/javascript">
+    var listUlLi = [
+        {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }, {
+            text: 'aaaa'
+        }];
+    var showList = [];//页面要展示的数组
+    window.onload = function () {
+        var wHeight = window.screen.height;
+        var wWidth = window.screen.width;
+        console.log("屏幕高度：" + wHeight);
+        console.log("屏幕宽度：" + wWidth);
+        RenderingUL();
+        var listUl = document.getElementById("listUl");
+        if (listUl.offsetTop < 10) {
+            alert("1");
+        }
+        console.log("当前ul距离屏幕顶端距离：" + listUl.offsetTop);
+    };
+    window.onscroll = function () {
+        var t = document.documentElement.scrollTop || document.body.scrollTop; //获取距离页面顶部的距离
+        var uptop = document.getElementById("uptop")[0]; //获取div元素
+        if (t >= 300) { //当距离顶部超过300px时
+            uptop.style.bottom = 30 + 'px';//使div距离底部30px，也就是向上出现
+        } else { //如果距离顶部小于300px
+            uptop.style.bottom = -50 + 'px';//使div向下隐藏
+        }
+    };
+    var top = document.getElementById("to-top");//获取图片元素
+    var timer = null;
+    top.onclick = function () { //点击图片时触发点击事件
+        timer = setInterval(function () { //设置一个计时器
+                var ct = document.documentElement.scrollTop || document.body.scrollTop; //获取距离顶部的距离
+                ct -= 10;
+                if (ct > 0) {//如果与顶部的距离大于零
+                    window.scrollTo(0, ct);//向上移动10px
+                } else {//如果距离小于等于零
+                    window.scrollTo(0, 0);//移动到顶部
+                    clearInterval(timer);//清除计时器
+                }
+            }, 10
+        );
+        //隔10ms执行一次前面的function，展现一种平滑滑动效果
+    };
+    /*将要展示的分页内容渲染到页面中*/
+    function RenderingUL() {
+        var listUl = document.getElementById("listUl");
+        showList = sliceList(listUlLi, 100, 0);
+        var test = '';
+        for (var i = 0; i < showList.length; i++) {
+            test += '<li>' + showList[i].text + '</li>';
+        }
+        listUl.innerHTML = test;
+
+    }
+    /*将数组内容分页*/
+    function sliceList(list, pageLength, nowPage) {
+        var pageLengthNum = parseInt(pageLength);
+        var nowPageNum = parseInt(nowPage);
+        var returnList = [];
+        if (list.length <= pageLength) {
+            returnList = list;
+        } else {
+            var len = pageLengthNum * nowPageNum;
+            if (nowPageNum > (list.length / pageLengthNum - 1)) {
+                returnList = [];
+                console.log("当前页数没有数据！");
+            }
+            returnList = list.slice(len, (len + pageLength));
+        }
+        return returnList;
+    }
+</script>
+</body>
+
+</html>

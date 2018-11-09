@@ -1,0 +1,53 @@
+<style>
+    #canvasFirst {
+        border: 1px solid blue;
+        width: 98%;
+        margin: 0 auto;
+        display: block;
+    }
+</style>
+<canvas id="canvasFirst" onmousemove="mouseId(event)" onmouseout="mouseIdNone()"></canvas>
+<div id="Coordinates"></div>
+<script type="text/javascript">
+    var Coordinates = document.getElementById('Coordinates');
+    var canvasFirst = document.getElementById('canvasFirst');
+    /*在canvasFirst内部建立编辑区域*/
+    var canvas = canvasFirst.getContext('2d');
+    /*fillStyle是用于编辑区域填充绘画的颜色、渐变或模式*/
+    var my_gradient = canvas.createLinearGradient(0, 0, 0, 170);
+    my_gradient.addColorStop(0, "#FF0000");
+    my_gradient.addColorStop(1, "#00FF00");
+    canvas.fillStyle = my_gradient;
+    /*
+     fillRect 方法规定了编辑区域的形状、位置和尺寸
+     *
+     *  */
+    canvas.fillRect(0, 0, 500, 500);
+
+    canvas.moveTo(10, 10);
+    canvas.lineTo(150, 50);
+    canvas.lineTo(10, 50);
+    canvas.stroke();
+    /*在编辑区域内放置图片*/
+    //    var img=new Image();
+    //    img.src="image/timg.jpg";
+    //    canvas.drawImage(img,0,0);
+    /*在编辑区域内画图形*/
+    canvas.fillStyle = "#FF0000";
+    canvas.beginPath();
+    canvas.arc(70, 18, 15, 0, Math.PI * 2, true);
+    canvas.closePath();
+    canvas.fill();
+    /*显示canvas框中当前鼠标位置*/
+    function mouseId(ele) {
+        var x = ele.clientX;
+        /*距离页面左侧距离*/
+        var y = ele.clientY;
+        /*距离页面顶部距离*/
+        Coordinates.innerHTML = 'Coordinates:(' + x + ',' + y + ')';
+    }
+    /*取消获取鼠标位置事件*/
+    function mouseIdNone() {
+        Coordinates.innerHTML = '';
+    }
+</script>

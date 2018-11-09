@@ -1,0 +1,33 @@
+page{
+  background-color: #f3f3f3;
+  height: 100%;
+}
+.useFail {
+  padding: 8% 12%;
+  background-color: #fff;
+  color: #010101;
+}
+
+.useFail .top {
+  text-align: center;
+  padding-bottom:70rpx;
+}
+.useFail .top text{
+  font-weight: 600;
+}
+.useFail .top image {
+  width: 280rpx!important;
+}
+.useFail .text{
+  text-indent:70rpx;
+  display:block;
+  font-size:30rpx;
+  line-height:40rpx;
+  text-align:center;
+}
+.useFail button{
+  width:200rpx;
+  margin-top:50rpx;
+  border:1px solid #4293f0;
+
+}

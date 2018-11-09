@@ -1,0 +1,26 @@
+.contentDiv {
+    display: none;
+    width: 88%;
+    margin: 2% auto;
+    background-color: #ffffff;
+    border-radius: 2%;
+}
+
+#inputText {
+    width: 100%;
+    border: none;
+    line-height: 50px;
+    font-size: 20px;
+    outline: none;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.timeLess {
+    text-align: center;
+}
+
+.timeLess span {
+    font-size: 20px;
+    font-weight: 600;
+}

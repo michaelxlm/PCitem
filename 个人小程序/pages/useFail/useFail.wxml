@@ -1,0 +1,10 @@
+<view class='useFail'>
+    <view class="top">
+        <view class='btn'>
+            <image src='/images/fail.png' mode='widthFix'></image>
+        </view>
+        <text>使用失败</text>
+    </view>
+    <text class="text">您的网络好像出了问题哦。</text>
+    <button bindtap="refresh">刷新</button>
+</view>

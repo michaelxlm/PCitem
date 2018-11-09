@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用video自动播放音频与audio自动播放音频</title>
+</head>
+<body>
+<audio id="myaudio" controls="controls" style="display: none" loop="loop" preload="metadata" hidden="true">
+    <source src='http://ws.stream.qqmusic.qq.com/C100001dPKD40OUxFz.m4a?fromtag=0&guid=126548448' type="audio/mpeg">
+</audio>
+<video id="myvideo" width="320" height="240" autoplay="autoplay" controls="controls" muted="muted">
+    <source src="MP3/3104.mp3" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<input type="button" onclick="autoPlay()" value="播放"/>
+<input type="button" onclick="closePlay()" value="关闭"/>
+<script language="javascript" type="text/javascript">
+    window.onload = function () {
+        setTimeout(function () {
+            var myvideo = document.getElementById('myvideo');
+            myvideo.muted = false;
+            myvideo.play();
+        }, 1000)
+    }
+    function autoPlay() {
+        var myAuto = document.getElementById('myaudio');
+        myAuto.play();
+    }
+    function closePlay() {
+        var myAuto = document.getElementById('myaudio');
+        myAuto.pause();
+        myAuto.load();
+    }
+
+</script>
+</body>
+</html>

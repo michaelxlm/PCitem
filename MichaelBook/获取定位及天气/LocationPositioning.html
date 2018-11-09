@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>h5地理定位</title>
+</head>
+<body>
+<p id="demo">点击这个按钮，获得您的坐标：</p>
+<button onclick="getLocation()">试一下</button>
+<script>
+    var x = document.getElementById("demo");
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+            /*函数获得并显示经度和纬度*/
+            navigator.geolocation.watchPosition(showPosition);
+            /*返回用户的当前位置，并继续返回用户移动时的更新位置*/
+        }
+        else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+    /*处理成功，显示经纬度
+     * coords.latitude 十进制纬度
+     * coords.longitude 十进制经度
+     * coords.accuracy	位置精度
+     * coords.altitude	海拔，海平面以上以米计
+     * coords.altitudeAccuracy	位置的海拔精度
+     * coords.heading	方向，从正北开始以度计
+     * coords.speed	速度，以米/每秒计
+     * timestamp	响应的日期/时间
+     * */
+    function showPosition(position) {
+        x.innerHTML = "纬度: " + position.coords.latitude +
+                "<br />经度: " + position.coords.longitude;
+    }
+    /*处理错误，当定位获取失败时调用*/
+    function showError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:/*用户不允许地理定位*/
+                x.innerHTML = "User denied the request for Geolocation.";
+                break;
+            case error.POSITION_UNAVAILABLE:/* 无法获取当前位置*/
+                x.innerHTML = "Location information is unavailable.";
+                break;
+            case error.TIMEOUT:/*操作超时*/
+                x.innerHTML = "The request to get user location timed out.";
+                break;
+            case error.UNKNOWN_ERROR:/*未知错误*/
+                x.innerHTML = "An unknown error occurred.";
+                break;
+        }
+    }
+</script>
+</body>
+</html>

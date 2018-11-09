@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>签名成功</title>
+    <script src="js/jQuery/jquery-1.11.1.js"></script>
+    <script src="js/ajax/ajax.js"></script>
+
+</head>
+<style>
+    #successSign {
+        text-align: center;
+        color: red;
+    }
+
+    .successDiv {
+        padding: 4rem 0 2rem 0;
+    }
+
+    .successDiv p {
+        line-height: 4rem;
+    }
+
+    .successBoo {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 1rem;
+    }
+
+    .pdfSignatureButton {
+        border-radius: 6px;
+        background-color: rgba(246, 56, 84, 1);
+        color: rgba(255, 255, 255, 1);
+        text-align: center;
+        font-family: Microsoft Yahei;
+        padding: 0;
+        height: 55px;
+        line-height: 55px;
+        width: 90%;
+        font-size: 1.2rem;
+        margin: 0.5rem auto;
+        display: block;
+    }
+
+    #successSign .initEnd {
+        width: 6rem;
+        height: 6rem;
+        position: relative;
+    }
+
+    #successSign .initEnd #img11 {
+        position: absolute;
+        top: 1.7rem;
+        width: 3rem;
+        left: 1.5rem;
+        height: 2.6rem;
+        animation: faceEND 1s infinite linear;
+        -moz-animation: faceEND 1s infinite linear;
+        -webkit-animation: faceEND 1s infinite linear;
+        -o-animation: faceEND 1s infinite linear;
+        padding: 0.6rem;
+        box-sizing: border-box;
+    }
+
+    #successSign .initEnd #img12 {
+        width: 5.5rem;
+        height: 5.5rem;
+        margin-top: 0.2rem;
+        margin-left: 0.2rem;
+        animation: faceENDImg 1s infinite linear;
+        -moz-animation: faceENDImg 1s infinite linear;
+        -webkit-animation: faceENDImg 1s infinite linear;
+        -o-animation: faceENDImg 1s infinite linear;
+        padding: 0.6rem;
+        box-sizing: border-box;
+    }
+
+    #successSign .faceStartButton {
+        border-radius: 100%;
+        font-size: 0.75rem;
+        margin: 1.5rem auto;
+    }
+
+    #successSign .bigStart {
+        width: 9rem;
+        height: 9rem;
+        border: 1px dashed #F63854;
+    }
+
+    @keyframes faceEND {
+        0% {
+            transform: scale(1);
+        }
+        33% {
+            transform: scale(1.3);
+        }
+        66% {
+            transform: scale(1.6);
+        }
+        100% {
+            transform: scale(1.9);
+        }
+    }
+
+    @keyframes faceENDImg {
+        0% {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+        33% {
+            transform: scale(1.3);
+            opacity: 0.6;
+        }
+        66% {
+            transform: scale(1.6);
+            opacity: 0.9;
+        }
+        100% {
+            transform: scale(1.9);
+            opacity: 0;
+        }
+    }
+</style>
+<body>
+<div id="successSign">
+    <div class="successDiv">
+        <div class="faceStartButton bigStart">
+            <div class="faceStartButton initEnd">
+
+                <img src="img/21.png" id="img11"/><img src="img/22.png" id="img12"/>
+            </div>
+        </div>
+        <p>恭喜您已完成签字</p>
+    </div>
+    <div class="successBoo">
+        <button type="button" class="pdfSignatureButton" onclick="successFunc()">完成</button>
+    </div>
+</div>
+<script type="text/javascript">
+    /*获取url中"?"符后的字串*/
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = {};
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            var strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    var dataURL = GetRequest();
+    function successFunc() {
+        var option = {
+            id: dataURL.id
+        };
+        var dataList = {
+            url: "h5sendMail/sendMail",
+            data: option
+        };
+        NTAjax(dataList, function (data) {
+            console.log(data);
+            if (data.result) {
+                alertModelAutomatic("您已完成空中签名。");
+                if (navigator.userAgent.indexOf("MSIE") > 0) {
+                    if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+                        window.opener = null;
+                        window.close();
+                    }
+                    else {
+                        window.open(' ', '_top');
+                        window.top.close();
+                    }
+                }
+                else if (navigator.userAgent.indexOf("Firefox") > 0) {
+                    window.location.href = 'about:blank '; //火狐默认状态非window.open的页面window.close是无效的
+                    //window.history.go(-2);
+                }
+                else {
+                    window.opener = null;
+                    window.open(' ', '_self');
+                    window.close();
+                }
+            } else {
+                return alertModelAutomatic(data.info);
+            }
+        });
+    }
+</script>
+</body>
+</html>

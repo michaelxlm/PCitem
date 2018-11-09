@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>input框输入动画</title>
+    <script src="js/inputFlash.js"></script>
+    <style>
+        form {
+            padding: 30px;
+            height: 200px;
+            width: 200px;
+            line-height: 28px;
+            font-size: 16px;
+        }
+
+        form div {
+            text-align: center;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<form action="">
+    <div class="aaaaa">
+        <input type="text" id="userName"/>
+    </div>
+    <div class="aaaaa">
+        <input type="text" id="passWord"/>
+    </div>
+</form>
+<script>
+    window.onload = function () {
+        inputFlash.init([{
+            id: "userName",
+            val: "用户名"
+        }, {
+            id: "passWord",
+            val: "密码"
+        }]);
+    };
+</script>
+</body>
+</html>

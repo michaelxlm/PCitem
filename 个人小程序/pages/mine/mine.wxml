@@ -1,0 +1,30 @@
+<view class="mine">
+    <view class="header">
+        <image src='/images/mineBack.png' class="imgBlackGround"></image>
+        <view wx:if="{{isLogin}}">
+            <view class="headImg">
+                <image src='{{avatarImageSrc}}'></image>
+            </view>
+            <text>{{phone}}</text>
+        </view>
+        <view wx:if="{{!isLogin}}">
+            <button bindtap="togoPhone" class="mineButton">绑定手机号</button>
+        </view>
+    </view>
+    <view class="userList">
+        <view bindtap='toMineCar'>
+            <image src='/images/coupon.png' class="mineIconLefta" mode='widthFix'></image>
+            <text>我的车牌</text>
+            <image src='/images/iconRight.png' class="mineIconRight" mode='widthFix'></image>
+        </view>
+        <view bindtap='toFeedback'>
+            <image src='/images/feedback.png' class="mineIconLeftb" mode='widthFix'></image>
+            <text>意见反馈</text>
+            <image src='/images/iconRight.png' class="mineIconRight" mode='widthFix'></image>
+        </view>
+    </view>
+</view>
+
+<!--底部导航-->
+<import src="../tabbar/tabbar.wxml"/>
+<template is="tabbar" data="{{tabbar}}"/>

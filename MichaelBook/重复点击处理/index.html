@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>处理重复点击</title>
+</head>
+<body>
+<button onclick="clickMore()">按钮点击</button>
+<script type="text/javascript">
+    function clickMore() {
+        console.log("点击事件触发");
+        if (api.timeClick('clickMore'))return;//解决重复点击问题
+        console.log("发送请求");
+    }
+    var api = {
+        /*防止重复点击*/
+        timeClick: function (ele) {
+            var that = this;
+            var funcTime = that.getLocalData(ele);
+            if (funcTime == null || funcTime == undefined) {
+                that.saveLocalData(ele, '1');
+                return false;
+            } else {
+                setTimeout(function () {
+                    that.clearLocalData(ele);
+                }, 1500);//设置清和重置时间
+                return true;
+            }
+        },
+        getLocalData: function (key) {
+            var obj = window.localStorage.getItem(key);
+            if (obj) {
+                obj = JSON.parse(obj);
+                var type = obj["type"];
+                var data = obj["data"];
+                if (type === "object") {
+                    return JSON.parse(data);
+                }
+                return data;
+            } else {
+                return null;
+            }
+        },
+        saveLocalData: function (key, data) {
+            var saveObj = {};
+            if (typeof(data) === "object") {
+                saveObj = {"type": "object", data: JSON.stringify(data)}
+            } else {
+                saveObj = {"type": "string", data: data}
+            }
+            window.localStorage.setItem(key, JSON.stringify(saveObj));
+        },
+        clearLocalData: function (key) {
+            window.localStorage.removeItem(key);
+        }
+    }
+</script>
+</body>
+</html>

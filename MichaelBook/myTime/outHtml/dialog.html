@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dialog对话框</title>
+</head>
+<body>
+<dialog open>
+    一直打开的dialog
+</dialog>
+<dialog id="dialogOne">
+    dialogOne
+    <button onclick="closes()">close关闭dialog对话框</button>
+</dialog>
+<button onclick="showModal()">showModal打开dialog对话框</button>
+<button onclick="open()">open打开dialog对话框</button>
+<button onclick="show()">show打开dialog对话框</button>
+</body>
+<script type="text/javascript">
+    var dialogOne=document.getElementById("dialogOne");
+    function showModal() {
+        dialogOne.showModal();
+    }
+    function show() {
+        dialogOne.show();
+    }
+    function closes() {
+        dialogOne.close();
+    }
+</script>
+</html>

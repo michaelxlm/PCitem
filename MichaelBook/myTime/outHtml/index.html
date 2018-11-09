@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="inputs" value=""/>
+<button type="button" onclick="clickes()">按钮</button>
+<div id="divs"></div>
+<script type="text/javascript">
+    function timeOutSet() {
+        var clickTime = 0;
+        console.log(e);
+        var buttonNumber = e.button;
+        var valAttr = e.srcElement.attributes;
+        if (buttonNumber == 0) {//点击了鼠标左键
+            if (clickTime != 0) {
+                var nowTime = e.timeStamp;                                     //当前时间戳
+                if (clickTime != undefined && (nowTime - clickTime < 2500)) {
+                    console.log(e.srcElement.attributes);
+                    for (var i = 0; i < valAttr.length; i++) {
+                        if (valAttr[i].nodeName == "onclick") {
+                            valAttr[i].nodeValue = "";
+                        }
+                    }
+                } else {
+                    for (var j = 0; j < valAttr.length; j++) {
+                        if (valAttr[j].nodeName == "onclick") {
+                            valAttr[j].nodeValue = "";
+                        }
+                    }
+                }
+            }
+            clickTime = nowTime;
+        }
+    }
+    window.onload = function () {
+        console.log(document.getElementsByTagName("button"));
+        document.getElementsByTagName("button")[0].onmousedown = function (e) {
+        };
+    };
+
+
+    function clickes() {
+        var input = document.getElementById("inputs");
+        var div = document.getElementById("divs");
+        /*alert(HtmlUtil.htmlEncodeByRegExp(input.value));*/
+        div.innerHTML = HtmlUtil.htmlEncodeByRegExp(input.value);
+    }
+    var HtmlUtil = {
+        /*1.用正则表达式实现html转码*/
+        htmlEncodeByRegExp: function (str) {
+            var s = "";
+            if (str == undefined)return "";
+            if (str == null)return "";
+            if (!isNaN(str))return str;
+            if (str.length == 0) return "";
+            s = str.replace(/&/g, "&amp;");
+            s = s.replace(/</g, "&lt;");
+            s = s.replace(/>/g, "&gt;");
+            s = s.replace(/ /g, "&nbsp;");
+            s = s.replace(/\'/g, "&#39;");
+            s = s.replace(/\"/g, "&quot;");
+            return s;
+        },
+        /*2.用正则表达式实现html解码*/
+        htmlDecodeByRegExp: function (str) {
+            var s = "";
+            if (str.length == 0) return "";
+            s = str.replace(/&amp;/g, "&");
+            s = s.replace(/&lt;/g, "<");
+            s = s.replace(/&gt;/g, ">");
+            s = s.replace(/&nbsp;/g, " ");
+            s = s.replace(/&#39;/g, "\'");
+            s = s.replace(/&quot;/g, "\"");
+            return s;
+        }
+    };
+    var linkes = HtmlUtil.htmlEncodeByRegExp("alert('2')");
+    console.log(linkes);

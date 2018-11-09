@@ -1,0 +1,95 @@
+.container-login{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-wrapper{
+  width: 571rpx;
+  padding: 12rpx 52rpx 42rpx 52rpx;
+  border-radius: 20rpx;
+  background: #568add;
+  margin-top: -84rpx;
+}
+.free-text{
+  height: 120rpx;
+  line-height: 120rpx;
+  color: #ffffff;
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.car-list{
+  height: 72rpx;
+  line-height: 72rpx;
+  background: #6ca0eb;
+  border-radius: 5rpx;
+  border: 3rpx solid #9fc7f8;
+  color: #ffffff;
+  text-align: center;
+  font-size: 38rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+.car-list image{
+  width: 34rpx;
+  height: 34rpx;
+  position: absolute;
+  top: 20rpx;
+  right: 36rpx;
+}
+.number-input{
+  height: 64rpx;
+  padding: 16rpx 0;
+  border-top: 3rpx solid #9fc7f8;
+  border-bottom: 3rpx solid #9fc7f8;
+  color: #ffffff;
+  display: flex;
+}
+.number-input picker{
+  width: 134rpx; 
+  height: 64rpx;
+  line-height: 64rpx;
+  border-right: 2rpx solid #88ace6;
+  position: relative;
+}
+.number-input picker .picker text{
+  font-size: 36rpx;
+   padding: 0 20rpx; 
+}
+.number-input picker .picker image{
+  width: 22rpx;
+  height: 12rpx;
+  position: absolute;
+  top: 50%;
+  margin-top: -4rpx;
+  right: 32rpx;
+}
+.number-input .carInput{
+  width: 437rpx;
+}
+.number-input .carInput .input-car{
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 34rpx;
+  padding-left: 42rpx;
+}
+.place-holder{
+  color: #d3e0f3;
+}
+.input-wrapper{
+  display: flex;
+  border-bottom: 3rpx solid #5d96ec;
+}
+.btn-next{
+  height: 88rpx;
+  line-height: 88rpx;
+  background: #6ca0eb;
+  border-radius: 5rpx;
+  border: 3rpx solid #9fc7f8;
+  color: #ffffff;
+  margin: 30rpx 0 0 0;
+  font-size: 36rpx; 
+}
+.btn-next::after{
+  border: none;
+}

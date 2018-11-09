@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .main {
+            background-color: blue;
+            color: white;
+            height: 200px;
+            width: 180px;
+            margin: 0 auto;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 50px;
+            overflow: hidden;
+        }
+
+        .main span {
+            display: inline-block;
+            height: 50px;
+            width: 100px;
+            margin: 0;
+            float: left;
+
+        }
+
+        .move {
+            width: 70px;
+            height: 50px;
+            background: red;
+            display: inline-block;
+            position: relative;
+            top: 75px;
+
+        }
+
+        .floor {
+            position: relative;
+            top: 0;
+            transition: top 2s;
+            -moz-transition: top 2s;
+            -webkit-transition: top 2s;
+            -o-transition: top 2s;
+        }
+
+        .add {
+            top: 100px
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="floor">
+        <span>10</span>
+        <span>9</span>
+        <span>8</span>
+        <span>7</span>
+        <span>6</span>
+        <span>5</span>
+        <span>4</span>
+        <span>3</span>
+        <span>2</span>
+        <span>1</span>
+        <span>0</span>
+    </div>
+    <div class="move"></div>
+</div>
+<button onclick="add()">添加</button>
+<script>
+    function add() {
+        var floor = document.getElementsByClassName("floor")[0];
+        floor.setAttribute("class", "floor add ");
+    }
+</script>
+</body>
+</html>

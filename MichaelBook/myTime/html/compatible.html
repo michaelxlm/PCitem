@@ -1,0 +1,90 @@
+<div id="compatible">
+    <p>常见的浏览器内核引擎以及具体应用：
+        Trident： IE浏览器；
+        Gecko： Firefox浏览器；
+        webkit： Safari，Google Chrome，遨游3，猎豹，百度浏览器；
+        Presto：Opera的内核，但由于市场选择问题，主要应用于手机平台——Opera mini</p>
+    <h2>css兼容性</h2>
+    <table>
+        <tr>
+            <th>常用解决方法</th>
+            <th>适用浏览器</th>
+        </tr>
+        <tr>
+            <td>*</td>
+            <td>ie6,ie7可以识别</td>
+        </tr>
+        <tr>
+            <td>_和- </td>
+            <td>ie6可以识别</td>
+        </tr>
+        <tr>
+            <td>!important</td>
+            <td>表示高优先级，ie7及以上，firefox都支持，ie6认识带!important的样式属性，但不认识!important的优先级；</td>
+        </tr>
+        <tr>
+            <td>-webkit-</td>
+            <td>针对safari，chrome浏览器的内核CSS写法</td>
+        </tr>
+        <tr>
+            <td>-moz-</td>
+            <td>针对firefox浏览器的内核CSS写法</td>
+        </tr>
+        <tr>
+            <td>-ms-</td>
+            <td>针对ie内核的CSS写法</td>
+        </tr>
+        <tr>
+            <td>-o-</td>
+            <td>针对Opera内核的CSS写法</td>
+        </tr>
+        <tr>filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);/*兼容ie--css3(含ie9以下)*/</tr>
+    </table>
+    <table>
+        <tr>
+            <th>css-浏览器兼容问题</th>
+            <th>解决方法</th>
+        </tr>
+        <tr>
+            <td>标签，不加样式控制的情况下，各自的margin 和padding差异较大。</td>
+            <td>添加样式：  *{margin:0;padding:0;}</td>
+        </tr>
+        <tr>
+            <td>块属性标签float后，又有横行的margin情况下，在IE6显示margin比设置的大</td>
+            <td>在float的标签样式控制中加入 display:inline;将其转化为行内属性</td>
+        </tr>
+        <tr>
+            <td>设置较小高度标签（一般小于10px），在IE6，IE7，遨游中高度超出自己设置高度</td>
+            <td>给超出高度的标签设置overflow:hidden;或者设置行高line-height 小于你设置的高度。</td>
+        </tr>
+        <tr>
+            <td>行内属性标签，设置display:block后采用float布局，又有横行的margin的情况，IE6间距bug</td>
+            <td>在display:block;后面加入display:inline;display:table;</td>
+        </tr>
+        <tr>
+            <td>图片默认有间距</td>
+            <td>使用float属性为img布局</td>
+        </tr>
+        <tr>
+            <td>标签最低高度设置min-height不兼容</td>
+            <td>如果我们要设置一个标签的最小高度200px，需要进行的设置为：{min-height:200px; height:auto !important; height:200px; overflow:visible;}</td>
+        </tr>
+        <tr>
+            <td>透明度的兼容CSS设置</td>
+            <td>使用hacker我可以把浏览器分为3类：IE6 ；IE7和遨游；其他（IE8 chrome ff safari opera等）
+
+                IE6认识的hacker 是下划线_ 和星号 *
+
+                IE7 遨游认识的hacker是星号 *
+
+                比如这样一个CSS设置：
+
+                height:300px;*height:200px;_height:100px;
+                IE6浏览器在读到height:300px的时候会认为高时300px；继续往下读，他也认识*heihgt， 所以当IE6读到*height:200px的时候会覆盖掉前一条的相冲突设置，认为高度是200px。继续往下读，IE6还认识_height,所以他又会覆盖掉200px高的设置，把高度设置为100px；
+
+                IE7和遨游也是一样的从高度300px的设置往下读。当它们读到*height200px的时候就停下了，因为它们不认识_height。所以它们会把高度解析为200px，剩下的浏览器只认识第一个height:300px;所以他们会把高度解析为300px。因为优先级相同且想冲突的属性设置后一个会覆盖掉前一个，所以书写的次序是很重要的。</td>
+        </tr>
+    </table>
+    <h2>浏览器内核</h2>
+
+</div>

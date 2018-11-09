@@ -1,0 +1,272 @@
+
+#tmp_canvas {
+    position: absolute;
+    left: 0px;
+    right: 100%;
+    top: 0px;
+    cursor: crosshair;
+}
+
+.orange {
+    color: #fef4e9;
+    border: solid 1px #da7c0c;
+    background: #f78d1d;
+    background: -webkit-gradient(linear, left top, left bottom, from(#faa51a),
+    to(#f47a20));
+    background: -moz-linear-gradient(top, #faa51a, #f47a20);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+}
+
+.orange:hover {
+    background: #f47c20;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f88e11),
+    to(#f06015));
+    background: -moz-linear-gradient(top, #f88e11, #f06015);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+}
+
+.orange:active {
+    color: #fcd3a5;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f47a20),
+    to(#faa51a));
+    background: -moz-linear-gradient(top, #f47a20, #faa51a);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+}
+
+.button {
+    display: inline-block;
+    zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+    */*display: inline;*/ display: table-cell;
+    vertical-align: baseline;
+    margin: 0 2px;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    padding: .7em 3em .7em;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    border-radius: .5em;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    border: 1px solid #f2f2f2;
+    -webkit-tap-highlight-color: transparent;
+    color: #fff;
+    -webkit-appearance: none;
+}
+
+/*批量签名*/
+#comment_dialog {
+    /*height:74%;*/
+
+    width: 90%;
+    position: absolute;
+    top: 9%;
+    left: 5%;
+    z-index: 3;
+    background: #fff;
+    padding: 2% 2% 2% 2%;
+    box-sizing: border-box;
+}
+
+#tmpcanvascss {
+    border: 1px solid #E0E0E0;
+}
+
+#comment_btnContainerInner {
+    /*position:absolute;
+    bottom:5%;
+    left:-1%;*/
+}
+
+#comment_canvas {
+    left: 0;
+}
+
+#single_scrollbar {
+    position: absolute;
+    bottom: 6%;
+    left: 0px;
+    width: 100%;
+}
+
+#single_scrollbar_up {
+    position: absolute;
+    left: 30%;
+    text-align: right;
+    width: 17%;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    /*color: #e6350d;*/
+    background: url(../img/sign_left.png) no-repeat left 50% #fff;
+    -webkit-background-size: 30% 90%;
+    background-size: 30% 90%;
+}
+
+#single_scrollbar_down {
+    position: absolute;
+    left: 56%;
+    width: 17%;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    /*color: #e6350d;*/
+    background: url(../img/sign_right.png) no-repeat right 50% #fff;
+    -webkit-background-size: 30% 90%;
+    background-size: 30% 90%;
+}
+
+#signTitle {
+    position: absolute;
+    left: 34%;
+    top: 10%;
+}
+
+.closeButton {
+    position: absolute;
+    right: 3%;
+    top: 3%;
+    width: 6%;
+}
+
+/*确认/后退/重置*/
+#comment_ok, #comment_back, #comment_cancel {
+    display: inline-block;
+    zoom: 1;
+    vertical-align: baseline;
+    margin: 0 -2px;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    padding: .7em 1.9em .7em;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    border-radius: .5em;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    border: 1px solid #f2f2f2;
+    -webkit-tap-highlight-color: transparent;
+    color: #fff;
+    -webkit-appearance: none;
+}
+
+.backButton, .cancelButton {
+    background: #c9c9c9;
+}
+
+.confirmButton {
+    background: #e6350d;
+}
+
+#mesWindow {
+    z-index: 8;
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    border-radius: .5em;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    background: #fff;
+    width: 70%;
+    position: absolute;
+    left: 16%;
+    top: 30%;
+    box-sizing: border-box;
+}
+
+#mesWindowTop {
+    background-color: rgba(147, 152, 168, 0.20);
+    border-bottom: #eee 1px solid;
+    margin-left: 4px;
+    padding: 3px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 12px;
+}
+
+#mesWindowContent {
+    background-color: rgba(147, 152, 168, 0.20);
+    border-bottom: #d6d6d6 1px solid;
+    text-align: center;
+    font-size: 17px;
+    padding: 35px 20px 35px 20px
+}
+
+#mesWindow input {
+    color: #fff;
+    width: 100%;
+    background: #f25454;
+    text-align: center;
+    font-size: 17px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+#mesWindowBottom {
+    background-color: rgba(147, 152, 168, 0.20);
+    text-align: center;
+    padding: 0 5% 6% 5%;
+}
+
+.alert {
+    display: none;
+    text-align: center;
+    position: fixed;
+    top: 27%;
+    left: 50%;
+    z-index: 1400;
+    margin-left: -130px;
+    width: 260px;
+    font-size: 14px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+}
+
+@media screen  and (orientation: landscape) {
+    #comment_btnContainerInner {
+        position: absolute;
+        bottom: 5%;
+        left: -1%;
+    }
+
+    #tmpcanvascss {
+        border: none;
+        position: absolute;
+        top: 17%;
+    }
+
+    #comment_dialog {
+        height: 90%;
+        position: absolute;
+        top: 2%;
+    }
+
+    #signTitle {
+        left: 155%;
+        top: -9%;
+        z-index: -1;
+    }
+
+    .alert {
+        top: 20%;
+    }
+
+    .closeButton {
+        width: 4%;
+    }
+
+}
+
+@media screen  and (max-width: 320px) {
+    #single_scrollbar_down {
+        left: 51%;
+    }
+}

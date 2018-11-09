@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*js控制只能输数字和小数点，且只能输入两位小数*/
+    function clearNoNum(obj) {
+        obj.value = obj.value.replace(/[^\d.]/g, ""); //清除"数字"和"."以外的字符
+        obj.value = obj.value.replace(/^\./g, ""); //验证第一个字符是数字而不是
+        obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+        obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+        obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
+    }
+    /*校验必须输入数字*/
+    function validateNumberCheck(inputData){
+        var reg=new RegExp(/^[1-9]\d*$/);
+        if (reg.test(inputData)) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+    /*注册密码合法性验证--必须包含数字和字母，允许出现特殊字符!*/
+    function registerPasswordCheck(passwordNum) {
+        var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+        if (reg.test(passwordNum)) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算输入的字符长度</title>
+</head>
+<body>
+<input type="text" o>
+<script type="text/javascript">
+    /*获取汉字个数*/
+    function chineseNum(val) {
+        var k = 0;           //汉字个数
+        for (var i = 0; i < val.length; i++) {
+            var a = val.charAt(i);
+            if (a.match(/[^\x00-\xff]/ig) != null) {
+                k++;
+            }
+        }
+        return k;
+    }
+    /*只要键盘一抬起就验证编辑框中的文字长度，最大字符长度可以根据需要设定*/
+    function checkLength(obj, n) {
+        var maxChars = n;                                      //输入框限制的最多字符数
+        var text = obj.value;                                 //输入框显示的当前值（包括文字个数和字符个数）
+        var k = chineseNum(obj.value);                        //汉字的个数
+        var curr = text.length + k;                           //输入框显示的当前文字的个数（包括文字个数和字符个数）总字符数
+        if (curr <= maxChars) {
+            obj.value = text;
+        } else {
+            var str_length = 0;
+            var str_len = 0;
+            str_cut = new String();
+            str_len = curr;
+            b = n - 1;
+            for (var i = 0; i < str_len; i++) {
+                a = text.charAt(i);
+                str_length++;
+                if (escape(a).length > 4) {                                          //中文字符的长度经编码之后大于4
+                    str_length++;
+                }
+                if (str_length > b) {
+                    if (str_length == b + 2) {
+
+                    } else {
+                        str_cut = str_cut.concat(a);
+                    }
+                } else {
+                    str_cut = str_cut.concat(a);
+                }
+                if (str_length >= n) {
+                    obj.value = str_cut;
+                    return obj.value;
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

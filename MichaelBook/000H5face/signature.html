@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>签名</title>
+    <script src="js/jQuery/jquery-1.11.1.js" type="text/javascript"></script>
+    <script src="js/sign/libs/anysign_all.js" type="text/javascript"></script>
+    <script src="js/sign/anysignWebInterface.js" type="text/javascript"></script>
+    <script src="js/ajax/ajax.js" type="text/javascript"></script>
+    <style>
+        #dialog {
+            width: 100% !important;
+            height: 83% !important;
+            top: 2% !important;
+            left: 0 !important;
+            padding: 0 !important;
+        }
+
+        #container {
+            height: 100% !important;
+            width: 94% !important;
+            margin: 0 auto;
+            top: 0 !important;
+            overflow: hidden !important;
+            border: 2px solid rgb(237, 237, 237) !important;
+        }
+
+        #btnContainerInner {
+            left: 0 !important;
+        }
+
+        #btnContainerOuter {
+            position: absolute;
+            top: 87% !important;
+            left: 7% !important;
+            bottom: 3% !important;
+        }
+
+        #tmp_canvas, #anysignCanvas {
+            height: 100% !important;
+            width: 100% !important;
+            border: none;
+            right: 3%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .doResetDiv {
+            position: fixed;
+            right: 1rem;
+            top: 1rem;
+            z-index: 999;
+        }
+
+        .pdfSignatureButtonIn {
+            border-radius: 6px;
+            background-color: rgba(215, 222, 233, 1);
+            color: rgba(129, 142, 173, 1);
+            text-align: center;
+            font-family: Microsoft Yahei;
+            padding: 0;
+            height: 55px;
+            line-height: 55px;
+            width: 100%;
+            font-size: 1.2rem;
+            margin: 0 auto;
+            display: block;
+            -webkit-appearance: button-bevel;
+        }
+    </style>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div id="loading">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+<div id="dialog">
+    <div id="anysign_title" style="visibility: hidden">
+        请签名
+    </div>
+    <div id="container" style="overflow:hidden; border: 1px solid #ededed;background: #fff" onmousedown="return false;">
+        <canvas id="anysignCanvas">
+        </canvas>
+    </div>
+    <div id="single_scrollbar" style="vertical-align:middle;visibility: hidden" width="100%">
+        <div id="single_scrollbar_up">左移</div>
+        <div id="single_scrollbar_down">右移</div>
+    </div>
+</div>
+<div id="btnContainerOuter" style='width:83%'>
+    <div id="btnContainerInner" style="text-align: center;  font-size:5pt; width:100%;">
+        <button type="button" id="btnOK" class="pdfSignatureButtonIn" onclick="signatureFunc()" disabled>
+            下一步
+        </button>
+    </div>
+</div>
+<div class="doResetDiv">
+    <span onclick="clear_canvas()">清除</span>
+</div>
+<script type="text/javascript">
+    /*获取url中"?"符后的字串*/
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = {};
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            var strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    var canvasSetInterval, dataURL, apiInstance, dataSign, ImageSrc;
+    dataURL = GetRequest();
+    console.log(dataURL);
+    function initAnySign(channel, context_id) {
+        var res;
+        var resinit;
+        var callback = function (context_id, context_type, val) {
+            if (context_type == CALLBACK_TYPE_START_RECORDING || context_type == CALLBACK_TYPE_STOP_RECORDING) {
+                return;
+            }
+            if (context_type == CALLBACK_TYPE_SIGNATURE) {// 签名回显
+                console.log(val);
+                dataSign = apiInstance.getUploadDataGram();
+                ImageSrc = "data:image/png;base64," + val;
+            } else if (context_type == CALLBACK_TYPE_ON_PICTURE_TAKEN) {
+            } else if (context_type == CALLBACK_TYPE_ON_MEDIA_DATA) {
+                var audio = document.createElement("audio");
+                if (audio != null && audio.canPlayType && audio.canPlayType("audio/mpeg")) {
+                    audio.src = "data:image/gif;base64," + val;
+                    audio.play();
+                }
+            }
+        };// 测试回调，将回调数据显示
+        // 设置签名算法，默认为RSA，可以设置成SM2
+        EncAlgType.EncAlg = "SM2";
+        apiInstance = new AnySignApi();
+        // 初始化签名接口
+        res = apiInstance.initAnySignApi(callback, channel);
+        if (!res) {
+            console.log("init error");
+        }
+        // 注册单字签字对象20
+        res = addSignatureObj(context_id);
+        if (!res) {
+            console.log("addSignatureObj error");
+        } else {
+
+        }
+        // 将配置提交
+        res = apiInstance.commitConfig();
+        if (res) {
+            console.log("Init ALL 初始化成功");
+        } else {
+            console.log("Init ALL 初始化失败");
+        }
+        resinit = setTemplateData();
+        if (resinit) {
+            console.log("初始化签名信息成功！");
+            popupDialog(context_id);
+        } else {
+            alert("初始化签名信息失败");
+        }
+    }
+    // 配置模板数据
+    function setTemplateData() {
+        // 文件数据
+        var policyAgent;
+        if (!policyAgent) {
+            policyAgent = {
+                agentCode: "3766544",
+                phoneNum: "4766251"
+            }
+        }
+        var formData = "{\"bjcaxssrequest\":{\"submitinfo\":[{\"username\":\"" + policyAgent.agentCode + "\",\"identitycardnbr\":\"" + policyAgent.phoneNum + "\"}]}}";
+        var businessId = dataURL.id;// 集成信手书业务的唯一标识
+        var template_serial = "4000";// 用于生成PDF的模板ID
+        var res;
+        // 配置JSON格式签名原文
+        /**
+         * 设置表单数据，每次业务都需要set一次
+         * @param template_type  签名所用的模板类型
+         * @param contentUtf8Str 表单数据，类型为Utf8字符串
+         * @param businessId 业务工单号
+         * @param template_serial 模板序列号
+         * @returns {*} 是否设置成功
+         */
+        res = apiInstance.setTemplate(TemplateType.PDF, formData, businessId, template_serial);
+        if (res) {
+            return true;
+        } else {
+            alert("setTemplateData error");
+            return false;
+        }
+    }
+    // 添加单签签名框
+    function addSignatureObj(objId) {
+        var context_id = objId;
+        var signer = new Signer("test", "11011111111");
+        var sign_key_word = "盖章签字";//投被保人关键字
+        /**
+         * 关键字定位方式，寻找PDF中的关键字，根据关键字位置放置签名图片
+         * @param keyword 关键字
+         * @param keyWordAlignMethod
+         *            签字图片和关键字位置关系：
+         *            等于1时，签字图片和关键字矩形重心重合
+         *            等于2时，签字图片位于关键字正下方，中心线对齐；
+         *            等于3时，签字图片位于关键字正右方，中心线对齐；
+         *            等于4时，签字图片左上角和关键字右下角重合，可能额外附加偏移量，详见构造函数的offset参数
+         * @param keyWordOffset 当keyWordAlignMethod非零时，额外附加的偏移量，单位pt
+         * @param pageNo 寻找关键字的PDF起始页码
+         * @param KWIndex KWIndex 第几个关键字
+         * @constructor
+         */
+        var signerRule = new SignRule_KeyWord(sign_key_word, 3, 0, 1, 1);
+
+        var signatureConfig = new SignatureConfig(signer, signerRule);
+//                   1:时间在上、2：时间在下、3：时间在右
+//			var timeTag = new TimeTag(1,"yyMMdd hh:mm;ss");
+//			signatureConfig.timeTag = timeTag;
+        //设置签名图片宽度
+        signatureConfig.singleWidth = 200;
+        //设置签名图片高度
+        signatureConfig.singleHeight = 200;
+        //设置签名笔迹颜色，默认为黑色
+        signatureConfig.penColor = "#000000";
+        //是否开始时间戳服务
+        signatureConfig.isTSS = false;
+        signatureConfig.signatureImgRatio = 3.0;
+        //签名是否必须,设置为true时必须进行签名
+        signatureConfig.nessesary = true;
+
+
+        // 配置若干個批註對象
+        var res = apiInstance.addSignatureObj(context_id, signatureConfig);
+        if (res) {
+            return res;
+        } else {
+            return res;
+        }
+    }
+    function popupDialog(context_id) {
+        if (!apiInstance) {
+            return;
+        }
+        switch (apiInstance.showSignatureDialog(context_id)) {
+            case RESULT_OK:
+                console.log("信手书接口初始化成功");
+                break;
+            case EC_API_NOT_INITED:
+                console.log("信手书接口没有初始化");
+                break;
+            case EC_WRONG_CONTEXT_ID:
+                console.log("没有配置相应context_id的签字对象");
+                break;
+        }
+    }
+    function signatureInit() {
+        if (dataURL.id != undefined) {
+            $("#anysignCanvas").removeAttr("width").removeAttr("height");
+            $("#tmp_canvas").removeAttr("width").removeAttr("height");
+            /*初始化画布*/
+            initAnySign('10010', "21");
+            var canvas = document.getElementById('anysignCanvas');
+            /*定时监听canvas是否有变化*/
+            canvasSetInterval = setInterval(function () {
+                var blank = document.createElement('canvas');
+                blank.width = canvas.width;
+                blank.height = canvas.height;
+                if (canvas.toDataURL() != blank.toDataURL()) {
+                    /*下一步按钮解禁*/
+                    $("#btnOK").removeAttr("disabled").css({
+                        backgroundColor: "rgba(246, 56, 84, 1)",
+                        color: "rgba(255, 255, 255, 1)"
+                    })
+                } else {
+                    /*禁用下一步按钮*/
+                    $("#btnOK").attr("disabled", "disabled").css({
+                        backgroundColor: " rgba(215, 222, 233, 1)",
+                        color: "rgba(129, 142, 173, 1)"
+                    })
+                }
+            }, 100);
+        }
+    }
+    $(document).ready(function () {
+        $("#loading").hide();
+        signatureInit();
+    });
+    /*点击下一步按钮*/
+    function signatureFunc() {
+        $("#loading").show();
+        sign_confirm();
+        console.log(ImageSrc);
+        var imgType;
+        if (ImageSrc.indexOf("png")) {
+            imgType = ".png";
+        } else if (ImageSrc.indexOf("jpg")) {
+            imgType = ".jpg";
+        } else if (ImageSrc.indexOf("gif")) {
+            imgType = ".gif";
+        } else if (ImageSrc.indexOf("jpeg")) {
+            imgType = ".jpeg";
+        }
+        console.log(dataSign);
+        var option = {
+            sign_data: dataSign,
+            img_data: ImageSrc, id: dataURL.id, img_type: imgType
+        };
+        console.log(option);
+        var dataList = {
+            url: "axSale/autograph/caAuth",
+            data: option
+        };
+        NTAjax(dataList, function (data) {
+            $("#loading").hide();
+            console.log(data);
+            if (data.result) {
+                clearInterval(canvasSetInterval);//清除监听
+                window.location.href = 'successSign.html?id=' + dataURL.id + '';
+            } else {
+                signatureInit();
+                return alertModelAutomatic(data.info);
+            }
+        });
+    }
+</script>
+</body>
+</html>

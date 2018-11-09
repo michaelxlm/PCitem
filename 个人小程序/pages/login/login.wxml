@@ -1,0 +1,16 @@
+<view class='container-login'>
+  <image src='../../images/carBg.png' style='width:100%;'></image>
+  <view class='login-wrapper'>
+    <view class='free-text' style='background: url(../../images/free-bg.png) no-repeat left bottom; background-size: 80rpx 4rpx;'>免费停车券</view>
+    <form>
+      <view class='input-wrapper'>
+        <input placeholder-class='place-holder' type='number' maxlength='11' placeholder='请输入手机号' bindinput='mobileInput'/>
+      </view>
+      <view class='input-wrapper'>
+        <input class='input-code' placeholder-class='place-holder' type='text' placeholder='请输入验证码' bindinput='codeInput'/>
+        <button class='btn-code' bindtap='sendCode' disabled='{{disabled}}'>{{codeText}}</button>
+      </view>
+    </form>
+    <button class='btn-next' bindtap='next'>下一步</button>
+  </view>
+</view>

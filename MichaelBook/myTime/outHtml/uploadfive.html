@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>H5上传</title>
+    <script src="../js/uploadifive_H5/jquery.min.js"></script>
+    <script src="../js/uploadifive_H5/jquery.uploadifive.min.js"></script>
+    <link rel="stylesheet" href="../js/uploadifive_H5/uploadifive.css">
+</head>
+<body>
+<form class="cd-form" id="subForm"
+      action="" method="post">
+    <div id="cd-signup">
+        <p class="fieldset">
+            <label class="image-replace cd-photo1" for="signup-idimage1"></label>
+            <input class="full-width has-padding has-border"
+                   id="signup-idimage1" type="file" name="upload">
+            <input type="hidden" name="frontSide" id="frontSide">
+        <div id="tip-queue1"></div>
+        </p>
+    </div>
+</form>
+<script type="text/javascript">
+    $(function() {
+        $('#signup-idimage1').uploadifive({
+            'uploadScript': '',
+            'fileObjName': 'upload',
+            'buttonText': '请选择上传文件',
+            'fileTypeDesc': 'pdf文件',	//可选择文件类型说明
+            'fileType': 'application/pdf', 	//控制可上传文件的扩展名
+            'queueID': 'tip-queue1',
+            'multi': false,
+            'fileSizeLimit': 5242880,
+            'uploadLimit': 1,
+            'queueSizeLimit': 1,
+            'onUploadComplete': function (file, data) {
+            },
+            onCancel: function (file) {
+                $("#frontSide").val("");
+                /* 注意：取消后应重新设置uploadLimit */
+                $data = $(this).data('uploadifive'),
+                        settings = $data.settings;
+                settings.uploadLimit++;
+                alert(file.name + " 已取消上传~!");
+            },
+            onFallback: function () {
+                alert("该浏览器无法使用!");
+            },
+            onUpload: function (file) {
+                document.getElementById("submitID").disabled = true;//当开始上传文件，要防止上传未完成而表单被提交
+            },
+            onAddQueueItem: function (file) {
+                console.log(file);
+                if (file.type != "application/pdf") {
+                    alert("请您上传pdf格式文件！");
+                    this.onCancel();
+                    return
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

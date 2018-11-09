@@ -1,0 +1,15 @@
+[Unit]
+Description=h5ss - html5 streaming server
+Documentation=https://www.linkingvision.com/
+After=network.target remote-fs.target nss-lookup.target
+ 
+[Service]
+WorkingDirectory=/opt/h5ss
+Type=forking
+ExecStart=/bin/bash h5ss.service.sh start
+ExecReload=/bin/bash h5ss.service.sh restart
+ExecStop=/bin/bash h5ss.service.sh stop
+KillMode=process
+ 
+[Install]
+WantedBy=multi-user.target

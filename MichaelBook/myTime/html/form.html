@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="css/form.css">
+<form action="" id="form">
+    <fieldset>
+        <legend>表单----为field-set添加标题</legend>
+        <label for="formNumber">数字：
+            <input type="number" id="formNumber" name="formNumber" value="" oninput="checkLengthOut(this.id,6)">
+        </label>
+        <label for="formText">text文本：
+            <!--label中for与id相对应-->
+            <input type="text" value="" id="formText" name="formText">
+        </label>
+        <label for="formDate">日期：
+            <input type="date" value="" id="formDate" name="formDate">
+        </label>
+        <label for="formDatetime">日期时间：
+            <input type="datetime" id="formDatetime" name="formDatetime">
+        </label>
+        <label for="formDatetimeLocal">本地时间：
+            <input type="datetime-local" id="formDatetimeLocal" name="formDatetimeLocal">
+        </label>
+        <label for="formTel">电话号码：
+            <input type="tel" name="formTel" id="formTel" value="">
+        </label>
+        <label for="formEmail">电子邮件：
+            <input type="email" id="formEmail" name="formEmail">
+        </label>
+        <label for="formPassword">密码：
+            <input type="password" id="formPassword" name="formPassword">
+        </label>
+        <label for="">
+            <input type="radio" name="formRadio">
+        </label>
+        <label for="formTextArea">textarea文本：
+            <textarea name="formTextArea" id="formTextArea" cols="30" rows="10"></textarea>
+        </label>
+        <input type="submit" value="提交">
+        <input type="reset" value="重置">
+        <input type="button" value="取消">
+    </fieldset>
+    <label for="inputTEL">
+        <input type="tel" style="color: white;" id="inputTEL" name="tel" oninput="OnInput(event)"/>
+    </label>
+    <span id="inputTELText" style="position: relative;left: 12px;top: -18px;font-size: 12px;"></span>
+</form>
+<div class="cssTextShow">
+    (1)、【type="submit"】、【type="reset"】、button、【type="text"】、select、textarea默认情况下都有2px的border;
+
+    (2)、【type="submit"】、【type="reset"】、button默认情况下会有6px的左右padding；height在mac系统下会比在winxp win7系统下少1px,只有16px,（12px的字体时高度为17px）;
+
+    (3)、【type="text"】默认情况下会有1px的上下padding；WinXP和Win7下高度为15px，Mac系统下为14px
+
+    (4)、【type="checkbox"】默认情况下会有margin：3px 3px 3px 4px,并且宽/高度默认为13px(IE6，IE7默认大约是15px，Mac系统下只有9px)
+
+    (5)、【type="radio"】默认情况下会有margin: 3px 3px 0 5px的外边，并且宽/高度默认为13px（IE6,IE7默认大约是15px,Mac系统下只有9px）
+
+    (6)、textarea默认情况有1px的上下margin；
+    综上所述：只有【type="text"】和textarea是遵循w3c盒模型，其他都是传统ie，我们将他们所有的padding:0、margin:0、border:1px设置。
+    但是在这种情况下【type="checkbox"】【type="radio"】宽度仍然不统一
+    在给他们加上[box-sizing:border-box]在IE6/7下仍不兼容，所以这里还需要用到hack.
+</div>
+<script type="text/javascript">
+    /*监听文本框内容改变事件*/
+    document.getElementById("inputTEL").addEventListener("onporpertychange", function (e) {
+        console.log("inputting!!");
+    });
+    /*实时监听input框输入值变化*/
+    function OnInput(event) {
+        var value = event.target.value;
+        var text = "";
+        if (value.length > 18) {
+            document.getElementById("inputTEL").innerHTML = value.substring(0, 18);
+            alert("输入字符长度超出限制");
+            return;
+        }
+        for (var i = 0, len = value.length; i < len; i++) {
+            text += "●";
+        }
+        document.getElementById("inputTELText").innerHTML = text;
+    }
+</script>

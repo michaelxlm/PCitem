@@ -1,0 +1,30 @@
+page{
+    background-color: #f3f3f3;
+    height: 100%;
+}
+.useSuccess {
+    padding: 8% 12%;
+    background-color: #fff;
+    color: #010101;
+}
+
+.useSuccess .top {
+    text-align: center;
+    padding-bottom:70rpx;
+}
+.useSuccess .top text{
+    font-weight: 600;
+}
+.useSuccess .top image {
+    width: 200rpx!important;
+}
+.useSuccess .text{
+    text-indent:70rpx;
+    display:block;
+    font-size:30rpx;
+    line-height:40rpx;
+}
+.useSuccess .text text {
+    color: #4293f0;
+    font-size:32rpx;
+}

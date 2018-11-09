@@ -1,0 +1,98 @@
+    <style>
+        .container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        header {
+            background:blueviolet;
+            min-height: 100px;
+        }
+
+        content {
+            flex: 1; /* 1 代表盡可能最大，會自動填滿除了 header footer 以外的空間 */
+        }
+
+        footer {
+            background: greenyellow;
+            min-height: 100px;
+        }
+    </style>
+<div class="container">
+    <header></header>
+    <content>
+        <table id="tableId">
+        </table>
+        <div id="show"></div>
+        <div class="cssTextShow">
+            <h5>js遍历数组最优方法</h5>
+            for(j = 0,len=arr.length; j < len; j++) {
+            使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显。
+            这种方法基本上是所有循环遍历方法中性能最高的一种
+            }
+        </div>
+        <div class="cssTextShow">
+            <h5>ajax预加载js、css、img</h5>
+            setTimeout(function() {
+            // XHR to request a JS and a CSS
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://domain.tld/preload.js');
+            xhr.send('');
+            xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://domain.tld/preload.css');
+            xhr.open('GET', 'http://domain.tld/preload.css');
+            xhr.send('');
+            // preload image
+            new Image().src = "http://domain.tld/preload.png";
+            }, 1000);
+        </div>
+        <button type="button" onmousedown="whichButton(event)">判断鼠标点击按钮</button>
+        <button type="button" id="submit_btn">确定按钮</button>
+    </content>
+    <footer></footer>
+</div>
+<script type="text/javascript">
+    var array = [{
+        k:'concat()',
+        value:'连接两个或更多的数组，并返回结果。'
+    },{
+        k:'join()',
+        value:'把数组的所有元素放入一个字符串。元素通过指定的分隔符进行分隔。'
+    },{
+        k:'pop()',
+        value:'连接两个或更多的数组，并返回结果。'
+    }];
+    var tableID=document.getElementById('tableId');
+    var tableValue='';
+    var DivID=document.getElementById('show');
+    DivID.style.display='none';
+    /*将数组信息遍历到table中*/
+    for(var i=0,len=array.length;i<len;i++){
+         tableValue+=
+                '<tr>' +
+                '<td onclick="ArrayClick()">' +
+                array[i].k+
+                '</td>' +
+                '<td>' +
+                array[i].value+
+                '</td>' +
+                '</tr>';
+    }
+    tableID.innerHTML=tableValue;
+    function ArrayClick() {
+        DivID.innerHTML='';
+        DivID.style.display='block';
+        var ele=event.target || event.srcElement;//获取当前点击事件元素，兼容chrome和ie9
+        DivID.innerHTML=
+                '<div>' +
+                        "这是一个悲伤的故事"+
+                '</div>';
+
+    }
+
+    /*js--按钮点击事件*/
+    document.getElementById('submit_btn').onclick=function () {
+        alert("按钮被点击")
+    }
+</script>

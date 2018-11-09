@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动的盒子</title>
+    <script src="../js/three.js"></script>
+    <script src="../js/Tween.js"></script>
+    <script src="../js/Stats.js"></script>
+    <style type="text/css">
+        div#runBox {
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 1000px;
+            background-color: #EEEEEE;
+        }
+
+    </style>
+</head>
+<script type="text/javascript">
+    var renderer;//渲染器
+    function renderInit() {
+        var width = document.getElementById("runBox").clientWidth,
+                height = document.getElementById("runBox").clientHeight; //获取画布的宽高
+        renderer = new THREE.WebGLRenderer({ //生成渲染器对象（属性：抗锯齿效果为设置有效）
+            antialias: true,//antialias:true/false是否开启反锯齿
+            precision: "highp",//precision:highp/mediump/lowp着色精度选择
+            alpha: true,//alpha:true/false是否可以设置背景色透明
+            premultipliedAlpha: false,//?
+            stencil: false,//?
+            preserveDrawingBuffer: true,//preserveDrawingBuffer:true/false是否保存绘图缓冲
+            maxLights: 1//maxLights:最大灯光数
+        });
+        renderer.setSize(width, height);
+        document.getElementById("runBox").appendChild(renderer.domElement);
+        renderer.setClearColor(0xffffff, 1.0)
+    }
+    var camera;//相机
+    function cameraInit() {
+        var width = document.getElementById("runBox").clientWidth,
+                height = document.getElementById("runBox").clientHeight; //获取画布的宽高
+        camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+        //此处为设置透视投影的相机，默认情况下，相机的上方向为Y轴，右方向为X轴，沿着Z轴垂直朝里（视野角：fov； 纵横比：aspect； 相机离视最近的距离：near； 相机离视体积最远距离：far）
+        camera.position.x = 400;//设置相机的位置坐标
+        camera.position.y = 0;
+        camera.position.z = 0;
+        //设置相机的上为z轴方向
+        camera.up.x = 0;
+        camera.up.y = 0;
+        camera.up.z = 1;
+        // 设置视野的中心坐标
+        camera.lookAt({x: 0, y: 0, z: 0});
+    }
+    /* *设置场景，所有的元素只有在添加到场景当中之后才能够生效 */
+    var scene;
+    function sceneInit() {
+        scene = new THREE.Scene();
+    }
+    /* *设置光源 */
+    var light;
+    function lightInit() {
+        var pointColor = "0xFF00CC";
+        light = new THREE.AmbientLight(pointColor);//设置方向光源
+        light.position.set(50, 50, 50);//设置光源向量（x,y,z）
+        scene.add(light);//追加光源到场景
+    }
+    /* *设置物体 */
+    var cube = [];
+
+    function objectInit() {
+        for (var i = 0; i < 16; i++) {
+            cube[i] = new THREE.Mesh(//mesh是three.js的一个类
+                    new THREE.CubeGeometry(30, 30, 50),//形状 (宽 高 深度)
+                    new THREE.MeshLambertMaterial({color: 0x0000FF})//材质
+            );
+            scene.add(cube[i]);
+            cube[i].position.set(0, -120 + 80 * i, 0);
+        }
+    }
+
+    /* *旋转 */
+    var t = 0;
+
+    function loop() {
+        t++;
+        renderer.clear();
+        cube[0].rotation.set(t / 100, 0, 0);
+        cube[1].rotation.set(0, t / 100, 0);
+        cube[2].rotation.set(0, 0, t / 100);
+        camera.position.x = 400 * Math.cos(t / 100);
+        camera.position.y = 400 * Math.sin(t / 200);
+        camera.position.z = 50 * Math.cos(t / 100);
+        camera.lookAt({x: 0, y: 0, z: 0});
+        renderer.render(scene, camera);
+        window.requestAnimationFrame(loop);
+    }
+
+    /* *执行 */
+    function threeStart() {
+        renderInit();
+        cameraInit();
+        sceneInit();
+        lightInit();
+        objectInit();
+        loop();
+        renderer.clear();
+        renderer.render(scene, camera);
+    }
+</script>
+<body onload="threeStart();">
+<div id="runBox"></div>
+</body>
+</html>

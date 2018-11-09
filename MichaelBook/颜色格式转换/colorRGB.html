@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript实现 color颜色格式转换【 rgb和十六进制的转换】</title>
+    <script src="js/colorRgb.js"></script>
+</head>
+<body>
+<div>
+    <p id="rgb">rgb(255,255,255)</p>
+    <p id="word">#ffffff</p>
+</div>
+<script type="text/javascript">
+    var IdRgb = document.getElementById('rgb');
+    var IdWord = document.getElementById('word');
+    IdRgb.innerHTML = colorHex(IdRgb.innerHTML);
+    IdWord.innerHTML = colorRgb(IdWord.innerHTML);
+
+</script>
+</body>
+</html>

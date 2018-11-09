@@ -1,0 +1,14 @@
+<view class='container-feedback'>
+  <view class='feedback-top'>
+    <image src='../../images/write.png'></image>
+  </view>
+  <view class='feedback-text'>
+    <textarea value='{{textarea}}' bindinput='textareaInput' placeholder-class='place-holder' placeholder='感谢您使用轻停小程序，使用过程中有任何意见或建议请反馈给我们，我们会及时跟进解决。'></textarea>
+  </view>
+  <view class='text'>联系方式(选填)</view>
+  <view class='feedback-input'><input value='{{contact}}' bindinput='contactInput' type='text' placeholder-class='place-holder' placeholder='您的手机号、微信号、邮箱。' /></view>
+  <view><button class='submit' bindtap='subFeedback'>提交</button></view>
+</view>
+<view class='successModal' hidden='{{modalShow}}'>
+</view>
+<view class='tip' hidden='{{modalShow}}'>感谢您的反馈意见，我们会及时跟进并解决。</view>

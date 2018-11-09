@@ -1,0 +1,85 @@
+page{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.container-feedback{
+  padding: 0 28rpx;
+}
+.feedback-top{
+  text-align: center;
+  padding: 54rpx 0 52rpx 0;
+}
+.feedback-top image{
+  width: 96rpx;
+  height: 96rpx;
+}
+.feedback-text textarea{
+  width: 618rpx; 
+  height: 202rpx;
+  background: #f9f9fb;
+  border: 2rpx solid #e3e3e3;
+  border-radius: 16rpx;
+  padding: 34rpx 38rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+.place-holder{
+  color: #b4b4b4;
+}
+.text{
+  line-height: 70rpx;
+  font-size: 30rpx;
+  color: #4c4c4c;
+  margin-top: 54rpx;
+  padding-left: 12rpx;
+}
+.feedback-input{
+  height: 108rpx;
+  background: #f9f9fb;
+  border: 2rpx solid #e3e3e3;
+  border-radius: 16rpx;
+  padding: 0 38rpx;
+  font-size: 28rpx;
+  margin-bottom: 96rpx;
+}
+.feedback-input input{
+  height: 108rpx;
+  line-height: 108rpx;
+}
+button.submit{
+  height: 94rpx;
+  line-height: 94rpx;
+  border-radius: 46rpx;
+  border: 2rpx solid #e3e3e3;
+  background: #5175ef;
+  font-size: 32rpx;
+  color: #ffffff;
+}
+button.submit::after{
+  border: none;
+}
+.successModal{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+ .tip{
+  width: 474rpx;
+  border-radius: 16rpx;
+  margin-left: -261rpx;
+  text-align: center;
+  font-size: 32rpx;
+  background: #ffffff;
+  padding: 70rpx 24rpx 110rpx;
+  position: absolute;
+  top: 340rpx;
+  left: 50%;
+  z-index: 10000;
+}

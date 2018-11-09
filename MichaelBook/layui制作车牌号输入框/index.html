@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>我的车牌</title>
+    <link rel="stylesheet" href="layui/css/layui.css"/>
+    <link rel="stylesheet" href="common.css"/>
+    <script type="text/javascript" src="../jQuery/jquery-3.2.1.min.js"></script>
+    <script src="layui/lay/dest/layui.all.js"></script>
+    <style>
+        body {
+            font-size: .14rem;
+        }
+
+        .layui-layer {
+            height: auto !important;
+            border-radius: 8px;
+        }
+
+        .layui-layer-btn .layui-layer-btn0 {
+            border-color: #c39f6b;
+            background-color: #c39f6b;
+            float: right;
+            color: #fff;
+        }
+
+        .layui-layer-btn .layui-layer-btn1 {
+            float: left;
+        }
+
+        .layui-layer-btn a {
+            width: 30%;
+            text-align: center;
+            border-radius: 6px;
+            margin: 0 2%;
+        }
+
+        .layui-layer-btn {
+            border-top: 1px solid #ddd;
+            height: 30px;
+        }
+
+        .layui-layer-setwin .layui-layer-close2 {
+            display: none;
+        }
+
+        .layui-layer-setwin {
+            display: none;
+        }
+
+        .layui-layer-content {
+            height: auto !important;
+        }
+
+        .layui-layer {
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+<!--car number -->
+<div class="otherLic">
+    <h1>我的车牌</h1>
+    <div class="otherLicense">
+        <p></p>
+        <img class="PlateImg" src="image/LicensePlateImg.png" alt="">
+        <span id="otherLicenseCard">请输入车牌号</span>
+        <img id="deleteImg" src="image/delete.png" onclick="delCarother()"/>
+        <p></p>
+    </div>
+</div>
+<!--car number end-->
+<!--以下alert-->
+<div class="inputCarNumberBox" type="tt">
+    <form class="layui-form" action="">
+        <div>
+            <input class="inputSang province" type="text" value="沪" onfocus="this.blur()" maxlength="1"/>
+            <input class="inputSang capital changeBorder" type="text" onfocus="this.blur()" maxlength="1"/>
+            <!--<input class="inputCar" type="text" placeholder="输入车牌号" onfocus="this.blur()" maxlength="4"/>-->
+            <p class="inputCar">
+                <b style="color: #C0C0C0;">输入车牌号</b>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <!--error tip-->
+        <p class="regCar regCarNumber">
+            <img src="image/attention_03.png"/><span>车牌号格式错误</span>
+        </p>
+        <p class="regCar regLetter">
+            <img src="image/attention_03.png"/><span>请输入地域字母</span>
+        </p>
+        <!--error tip end-->
+    </form>
+</div>
+<!--删除车牌-->
+<div class="deleteCarNumber">
+    <form class="layui-form" action="">
+        <p style="font-size: 0.14rem;line-height:0.9rem ;text-align: center;">您要删除车牌<span
+                class="backLook">京QW1234</span> 吗？</p>
+    </form>
+</div>
+<!--删除 end-->
+<!-- 弹框 -->
+<div class="show-alert" id="js-show-alert">
+    <p class="pop-con" id="js-pop-con"></p>
+</div>
+<!--虚拟键盘-->
+<div class="virtualKeyboard">
+    <p>
+        <span class="keyCancel">取消</span>
+        <span class="keySuccess">完成</span>
+    </p>
+    <div class="provinceBox">
+        <div>
+            <span class="provinceTxt ptxt">京</span>
+            <span class="provinceTxt ptxt">津</span>
+            <span class="provinceTxt ptxt">冀</span>
+            <span class="provinceTxt ptxt">鲁</span>
+            <span class="provinceTxt ptxt">晋</span>
+            <span class="provinceTxt ptxt">蒙</span>
+            <span class="provinceTxt ptxt">辽</span>
+            <span class="provinceTxt ptxt">吉</span>
+        </div>
+        <div>
+            <span class="provinceTxt ptxt">黑</span>
+            <span class="provinceTxt ptxt">沪</span>
+            <span class="provinceTxt ptxt">苏</span>
+            <span class="provinceTxt ptxt">浙</span>
+            <span class="provinceTxt ptxt">皖</span>
+            <span class="provinceTxt ptxt">闽</span>
+            <span class="provinceTxt ptxt">赣</span>
+            <span class="provinceTxt ptxt">豫</span>
+        </div>
+        <div>
+            <span class="provinceTxt ptxt">鄂</span>
+            <span class="provinceTxt ptxt">湘</span>
+            <span class="provinceTxt ptxt">粤</span>
+            <span class="provinceTxt ptxt">渝</span>
+            <span class="provinceTxt ptxt">川</span>
+            <span class="provinceTxt ptxt">贵</span>
+            <span class="provinceTxt ptxt">云</span>
+            <span class="provinceTxt ptxt">藏</span>
+        </div>
+        <div>
+            <span class="provinceTxt ptxt">陕</span>
+            <span class="provinceTxt ptxt">甘</span>
+            <span class="provinceTxt ptxt">青</span>
+            <span class="provinceTxt ptxt">桂</span>
+            <span class="provinceTxt ptxt">琼</span>
+            <span class="provinceTxt ptxt">宁</span>
+            <span class="provinceTxt ptxt">新</span>
+            <span class="provinceTxt ptxt">港</span>
+        </div>
+        <div>
+            <span class="provinceTxt ptxt">澳</span>
+            <span class="provinceTxt ptxt">台</span>
+            <span class="provinceTxt ptxt">使</span>
+        </div>
+
+    </div>
+    <div class="capitalBox">
+        <div>
+            <span class="provinceTxt ctxt">A</span>
+            <span class="provinceTxt ctxt">B</span>
+            <span class="provinceTxt ctxt">C</span>
+            <span class="provinceTxt ctxt">D</span>
+            <span class="provinceTxt ctxt">E</span>
+            <span class="provinceTxt ctxt">F</span>
+            <span class="provinceTxt ctxt">G</span>
+            <span class="provinceTxt ctxt">H</span>
+        </div>
+        <div>
+            <span class="provinceTxt ctxt">I</span>
+            <span class="provinceTxt ctxt">J</span>
+            <span class="provinceTxt ctxt">K</span>
+            <span class="provinceTxt ctxt">L</span>
+            <span class="provinceTxt ctxt">M</span>
+            <span class="provinceTxt ctxt">N</span>
+            <span class="provinceTxt ctxt">O</span>
+            <span class="provinceTxt ctxt">P</span>
+        </div>
+        <div>
+            <span class="provinceTxt ctxt">Q</span>
+            <span class="provinceTxt ctxt">R</span>
+            <span class="provinceTxt ctxt">S</span>
+            <span class="provinceTxt ctxt">T</span>
+            <span class="provinceTxt ctxt">U</span>
+            <span class="provinceTxt ctxt">V</span>
+            <span class="provinceTxt ctxt">W</span>
+            <span class="provinceTxt ctxt">X</span>
+        </div>
+        <div>
+            <span class="provinceTxt ctxt">Y</span>
+            <span class="provinceTxt ctxt">Z</span>
+        </div>
+    </div>
+    <div class="wBox">
+        <div>
+            <span class="provinceTxt wtxt">1</span>
+            <span class="provinceTxt wtxt">2</span>
+            <span class="provinceTxt wtxt">3</span>
+            <span class="provinceTxt wtxt">4</span>
+            <span class="provinceTxt wtxt">5</span>
+            <span class="provinceTxt wtxt">6</span>
+            <span class="provinceTxt wtxt">7</span>
+            <span class="provinceTxt wtxt">8</span>
+        </div>
+        <div>
+            <span class="provinceTxt wtxt">9</span>
+            <span class="provinceTxt wtxt">0</span>
+        </div>
+        <div>
+            <span class="provinceTxt wtxt">A</span>
+            <span class="provinceTxt wtxt">B</span>
+            <span class="provinceTxt wtxt">C</span>
+            <span class="provinceTxt wtxt">D</span>
+            <span class="provinceTxt wtxt">E</span>
+            <span class="provinceTxt wtxt">F</span>
+            <span class="provinceTxt wtxt">G</span>
+            <span class="provinceTxt wtxt">H</span>
+        </div>
+        <div>
+            <span class="provinceTxt wtxt">I</span>
+            <span class="provinceTxt wtxt">J</span>
+            <span class="provinceTxt wtxt">K</span>
+            <span class="provinceTxt wtxt">L</span>
+            <span class="provinceTxt wtxt">M</span>
+            <span class="provinceTxt wtxt">N</span>
+            <span class="provinceTxt wtxt">O</span>
+            <span class="provinceTxt wtxt">P</span>
+        </div>
+        <div>
+            <span class="provinceTxt wtxt">Q</span>
+            <span class="provinceTxt wtxt">R</span>
+            <span class="provinceTxt wtxt">S</span>
+            <span class="provinceTxt wtxt">T</span>
+            <span class="provinceTxt wtxt">U</span>
+            <span class="provinceTxt wtxt">V</span>
+            <span class="provinceTxt wtxt">W</span>
+            <span class="provinceTxt wtxt">X</span>
+        </div>
+        <div>
+            <span class="provinceTxt wtxt">Y</span>
+            <span class="provinceTxt wtxt">Z</span>
+            <img src="image/keyDelete.png" class="keyDelete"/>
+        </div>
+    </div>
+</div>
+<!--虚拟键盘 end-->
+</body>
+
+</html>
+<script>
+    var province;
+    var capital;
+    var inputCar;
+    var count = 0;
+    function carValue() {
+        if ($(".provinceBox").css("display") == "block") {
+            $(".ptxt").unbind('click').click(function () {
+                province = $(this).html();
+                $(".province").val(province);
+                $(".province").css("border", "0.01rem solid #c39f6b");
+                $(".provinceBox").hide();
+                $(".capitalBox").show();
+                $(".wBox").hide();
+            })
+        }
+        if ($(".capitalBox").css("display") == "block") {
+            $(".ctxt").unbind('click').click(function () {
+                capital = $(this).html();
+                $(".capital").val(capital);
+                $(".provinceBox").hide();
+                $(".capitalBox").hide();
+                $(".wBox").show();
+                $(".regLetter").hide();
+                carValue();
+            })
+        }
+        if ($(".wBox").css("display") == "block") {
+            $(".wtxt").unbind('click').click(function () {
+                if (count < 5) {
+                    inputCar = $(this).html();
+                    $(".inputCar b").hide();
+                    $(".inputCar span").show();
+                    $(".inputCar span").eq(count).html(inputCar);
+                    count++;
+                }
+            })
+        }
+    }
+    carValue();
+    $(".keyDelete").click(function () {
+        if (count > 0) {
+            if (count == 1) {
+                $(".inputCar b").show();
+                $(".inputCar span").hide();
+                $('.regCarNumber').hide();
+            }
+            count--;
+            $(".inputCar span").eq(count).html("");
+
+        } else {
+        }
+    });
+    //------------------------------输入车牌号----------------------------------
+    //点击省份
+    $(document).on("click", ".province", function () {
+        $(".virtualKeyboard").show();
+        $(".provinceBox").show();
+        $(".capitalBox").hide();
+        $(".wBox").hide();
+        carValue();
+    });
+    //点击大写
+    $(document).on("click", ".capital", function () {
+        $(".virtualKeyboard").show();
+        $(".provinceBox").hide();
+        $(".capitalBox").show();
+        $(".wBox").hide();
+        carValue();
+    });
+    //输入车牌号码
+    $(".inputCar").click(function () {
+        $(".virtualKeyboard").show();
+        $(".provinceBox").hide();
+        $(".capitalBox").hide();
+        $(".wBox").show();
+        carValue();
+    });
+    //-------------------获取车牌号end-------------------------------------
+    var test;
+    /*初始化虚拟键盘*/
+    function Init() {
+        $(".inputCar b").show();
+        $(".inputCar span").html("");
+        $(".capital").val("");
+        $(".inputCar span").hide();
+        $(".regCar").hide();
+        $(".capitalBox").show();
+        $(".wBox").hide();
+        count = 0;
+        carValue();
+    }
+    /*添加其他车牌*/
+    $("#otherLicenseCard").click(function () {
+        if (this.innerHTML == "请输入车牌号") {
+            Init();
+            $(".virtualKeyboard").show();
+            test = layer.open({
+                type: 1,
+                title: "车牌号码",
+                content: $(".inputCarNumberBox"),
+                area: ['331px', '170px'],
+                offset: ['0'],
+                cancel: function (index, layero) {
+                    $(".inputCarNumberBox").hide();
+                    $(".virtualKeyboard").hide();
+                    layer.close(index);
+                }
+            });
+        }
+
+    });
+    //校验车牌号
+    function regInputCar() {
+        inputCar = $(".inputCar span").text();
+        var reg1 = /^[A-Z0-9]{4,6}[A-Z0-9挂学警港澳]{1}$/;
+
+        capital = $(".capital").val();
+        if (capital == "") {
+            $(".regCarNumber").show();
+            $(".regCarNumber span").html("请选择字母");
+            return false;
+        }
+
+        if (reg1.test(inputCar)) {
+            $(".regCarNumber").hide();
+            return true;
+        } else if (inputCar == "") {
+            $(".regCarNumber").show();
+            $(".regCarNumber span").html("请输入车牌号");
+        } else {
+            $(".regCarNumber").show();
+            $(".regCarNumber span").html("车牌号格式错误");
+        }
+    }
+    //虚拟键盘的取消和完成
+    $(".keyCancel").click(function () {
+        $(".virtualKeyboard").hide();
+        $(".inputCarNumberBox").hide();
+        $('.regCarNumber').hide();
+        layer.close(test); //关闭添加车牌号的弹窗
+    });
+    //key完成
+    $(".keySuccess").click(function () {
+        if (regInputCar()) {//regCapital() && regInputCar()
+            province = $(".province").val();
+            capital = $(".capital").val();
+            $(".virtualKeyboard").hide();
+            $(".inputCarNumberBox").hide();
+            $('.regCarNumber').hide();
+            layer.close(test); //关闭添加车牌号的弹窗
+            //车牌号码
+            var carNumber = province + capital + inputCar;
+            $("#otherLicenseCard").html(carNumber);
+            $("#deleteImg").show();
+        }
+    });
+    /*删除车牌*/
+    function delCarother() {
+        $(".backLook").html($("#otherLicenseCard").html());
+        layer.open({
+            type: 1,
+            title: false,
+            btnAlign: 'c',
+            content: $(".deleteCarNumber"),
+            btn: ['确认', '取消'],
+            area: ['260px', '200px'],
+            cancel: function (index, layero) {
+                alert("cancel");
+            },
+            yes: function (index, layero) {
+                $("#deleteImg").hide();
+                $(".deleteCarNumber").hide();
+                $("#otherLicenseCard").html("请输入车牌号");
+                layer.close(index);
+            },
+            btn2: function (index, layero) {
+                $(".deleteCarNumber").hide();
+                layer.close(index);
+            }
+        });
+    }
+</script>

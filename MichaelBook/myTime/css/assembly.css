@@ -1,0 +1,27 @@
+/*遮罩层*/
+.mask{
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+.alertModel{
+    position: fixed;
+    top:35%;
+    left: 36%;
+    width: 28%;
+    color: white;
+    background: rgba(0,0,0,0.6);
+    border-radius: 4px;
+    padding: 2%;
+    text-align: center;
+    line-height: 28px;
+}

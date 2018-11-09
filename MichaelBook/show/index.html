@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            word-wrap: break-word; /*自动换行*/
+            word-break: break-all; /*自动换行*/
+        }
+
+        body {
+            font-family: "microsoft yahei";
+            background-color: #ededed;
+        }
+
+        .startDiv, .box, .CarouselMap {
+            display: none;
+        }
+
+        .CarouselMap {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            bottom: 10%;
+        }
+
+        .classChangeDiv {
+        }
+
+    </style>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/start.css">
+    <link rel="stylesheet" href="css/content.css">
+    <link rel="stylesheet" href="css/Animation.css">
+</head>
+<body onload="BodyInit()" onunload="htmlOnUnload()">
+<!--开启-->
+<div class="startDiv">
+    <div class="top"></div>
+    <div class="Heartbeat" onclick="startFunc()"></div>
+</div>
+<!--内容-->
+<div class="contentDiv">
+    <p class="timeLess">
+        距离我们相识已过去：
+        <span id="Adays">00</span>天
+        <span id="Ahours">00</span>小时
+        <span id="Aminutes">00</span>分钟
+        <span id="Aseconds">00</span>秒
+    </p>
+    <p class="timeLess">
+        距离我表白已过去：
+        <span id="Vdays">00</span>天
+        <span id="Vhours">00</span>小时
+        <span id="Vminutes">00</span>分钟
+        <span id="Vseconds">00</span>秒
+    </p>
+    <textarea rows="" cols="" id="inputText" readonly></textarea>
+</div>
+<!--动画-->
+<div class="Animation">
+    <!--卡片-->
+    <div class="box">
+        <span id="one">世界那么大</span>
+        <span id="two">我想去看看</span>
+    </div>
+    <div class="classChangeDiv">
+        <p>listA</p>
+        <p>listB</p>
+        <p>listC</p>
+        <p>listD</p>
+        <p>listE</p>
+        <p>listF</p>
+        <p>listG</p>
+        <p>listH</p>
+        <p>listI</p>
+    </div>
+</div>
+<!--轮播图-->
+<div class="CarouselMap">
+    <link href="Component/html5lbt/css/sequence-theme.mono.css" rel="stylesheet" media="all">
+    <div id="sequence" class="seq">
+        <ul class="seq-canvas">
+            <li class="seq-step1 seq-valign seq-in">
+                <div class="seq-vcenter">
+                    <img data-seq class="seq-feature" src="Component/html5lbt/images/bananas.png"
+                         alt="A cartoon illustration of a bunch of bananas" width="389" height="300"
+                         srcset="Component/html5lbt/images/bananas.png 1x, Component/html5lbt/images/bananas@2x.png 2x"/>
+                    <h2 data-seq class="seq-title">Bananas</h2>
+                </div>
+            </li>
+
+            <li class="seq-step2 seq-valign">
+                <div class="seq-vcenter">
+                    <img data-seq class="seq-feature" src="Component/html5lbt/images/coconut.png"
+                         alt="A cartoon illustration of half a coconut" width="325" height="300"
+                         srcset="Component/html5lbt/images/coconut.png 1x, Component/html5lbt/images/coconut@2x.png 2x"/>
+                    <h2 data-seq class="seq-title">Coconut</h2>
+                </div>
+            </li>
+
+            <li class="seq-step3 seq-valign">
+                <div class="seq-vcenter">
+                    <img data-seq class="seq-feature" src="Component/html5lbt/images/orange.png"
+                         alt="A cartoon illustration of a round orange" width="350" height="300"
+                         srcset="Component/html5lbt/images/orange.png 1x, Component/html5lbt/images/orange@2x.png 2x"/>
+                    <h2 data-seq class="seq-title">Orange</h2>
+                </div>
+            </li>
+        </ul>
+
+        <fieldset class="seq-nav" aria-label="Slider buttons" aria-controls="sequence">
+
+            <button type="button" class="seq-prev" aria-label="Previous">
+                <img src="Component/html5lbt/images/prev.svg" alt="Previous"/>
+            </button>
+
+            <ul role="navigation" aria-label="Pagination" class="seq-pagination">
+                <li class="seq-current">
+                    <a href="#step1" rel="step1" title="Go to bananas">
+                        <img src="Component/html5lbt/images/tn-bananas@2x.png" alt="Bananas" width="50" height="40"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="#step2" rel="step2" title="Go to coconut">
+                        <img src="Component/html5lbt/images/tn-coconut@2x.png" alt="Coconut" width="50" height="40"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="#step3" rel="step3" title="Go to orange">
+                        <img src="Component/html5lbt/images/tn-orange@2x.png" alt="Orange" width="50" height="40"/>
+                    </a>
+                </li>
+            </ul>
+            <button type="button" class="seq-next" aria-label="Next">
+                <img src="Component/html5lbt/images/next.svg" alt="Next"/>
+            </button>
+        </fieldset>
+    </div>
+    <script src="Component/html5lbt/scripts/imagesloaded.pkgd.min.js"></script>
+    <script src="Component/html5lbt/scripts/hammer.min.js"></script>
+    <script src="Component/html5lbt/scripts/sequence.min.js"></script>
+    <script src="Component/html5lbt/scripts/sequence-theme.mono.min.js"></script>
+</div>
+<script src="js/main.js"></script>
+<script type="text/javascript">
+    /*textarea文本框高度自适应*/
+    function BodyInit() {
+        var s = '';
+        s += " 屏幕可用工作区高度：" + window.screen.availHeight + "\n";
+        s += " 屏幕可用工作区宽度：" + window.screen.availWidth + "\n";
+        console.log(s);
+        var startDivMarginTop = (window.screen.availHeight - 250) / 2;
+        $(".startDiv").css("marginTop", startDivMarginTop);
+        var contentDivHeight = (window.screen.availHeight * 0.88);
+        $(".contentDiv").css("height", contentDivHeight);
+    }
+</script>
+</body>
+</html>

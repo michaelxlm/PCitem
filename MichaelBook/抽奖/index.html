@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-touch-fullscreen" content="YES"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="MobileOptimized" content="320"/>
+    <title>抽奖页</title>
+    <script src="../jQuery/jquery-3.2.1.js"></script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="wrap_disk">
+    <div class="page">
+        <div id="divDisk" class="disk">
+            <div id="divPointer" class="pointer"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    disk.init();//抽奖插件初始化
+    if ($(window).height() < 568) {
+        $('.wrap_disk').css('height', '568px');
+    }
+    else {
+        $('.wrap_disk').css('min-height', $(window).height());
+    }
+</script>
+</body>
+</html>

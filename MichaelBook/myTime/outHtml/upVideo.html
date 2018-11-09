@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传视频</title>
+    <script src="../../jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<video src="" id="video"></video>
+<input type="file" name="FileUpload" id="FileUpload">
+<button type="button" onclick="upFile()">上传</button>
+<script type="text/javascript">
+    function upFile() {
+        // ajax上传视频返回路径
+        var fileObj = document.getElementById("FileUpload").files[0]; // js 获取文件对象
+        if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
+            alert("请选择图片");
+            return;
+        }
+        console.log(fileObj);
+        var formFile = new FormData();
+        formFile.append("action", "UploadVMKImagePath");
+        formFile.append("file", fileObj); //加入文件对象
+        var data = formFile;
+        $.ajax({
+            url: "http://10.10.13.52:8080/j2ee-project-oos-ssm-2/uploadflv/upload",
+            data: data,
+            type: "Post",
+            dataType: "json",
+            cache: false,//上传文件无需缓存
+            processData: false,//用于对data参数进行序列化处理 这里必须false
+            contentType: false, //必须
+            success: function (result) {
+                console.log(result);
+                $("#video").attr('src', result.data.file);
+            }
+        })
+    }
+</script>
+</body>
+</html>

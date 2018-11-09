@@ -1,0 +1,411 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 100px;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: #ebebeb;
+}
+
+html, body {
+    font-family: PingFangSC-Regular, Helvetica, "Droid Sans", Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+input {
+    outline: none;
+}
+
+.weui_dialog {
+    border-radius: 15px;
+    width: 72%;
+    left: 14%;
+}
+
+.weui_dialog_bd {
+    color: #000000;
+}
+
+.weui_btn_dialog.primary {
+    color: #216ec3;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+input {
+    outline: none;
+}
+
+.weui_dialog {
+    border-radius: 15px;
+    width: 72%;
+    left: 14%;
+}
+
+.weui_dialog_bd {
+    color: #000000;
+}
+
+.weui_btn_dialog.primary {
+    color: #216ec3;
+}
+
+/* 弹框 */
+.secondPayPop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    font-size: 14px;
+    color: #666;
+    width: 100%;
+    height: 100%;
+}
+
+.secondePayOpa {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.secondPayPopConWrap {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    z-index: 9999;
+    transform: translateY(-50%);
+    width: 80%;
+    background: #fff;
+    border-radius: 6px;
+    margin: 0 auto;
+}
+
+.secondPayPopCon {
+    padding: .2rem .2rem .1rem;
+    line-height: 22px;
+}
+
+.secondPayPopCon .secondPayPopTit {
+    text-align: center;
+    padding-bottom: .08rem;
+    font-size: .15rem;
+}
+
+.secondPayPopBtn {
+    padding: .1rem 0 .2rem;
+    text-align: center;
+}
+
+.secondPayPopBtn span {
+    display: inline-block;
+    padding: .08rem .6rem;
+    border: 1px solid #C39F6B;
+    color: #C39F6B;
+    border-radius: 4px;
+}
+
+/* 弹框end */
+/* 确认弹框 */
+#confirmPayPop .secondPayPopBtn {
+    width: 80%;
+    margin: 0 auto;
+    border-top: none;
+    padding: .1rem 0 .2rem;
+}
+
+#confirmPayPop .secondPayPopBtn span {
+    padding: .08rem 0;
+    width: 41%;
+}
+
+#confirmPayPop .secondPayPopBtn span:first-child {
+    /* margin-right: .3rem; */
+    float: left;
+    background: #fff;
+    color: #C39F6B;
+}
+
+#confirmPayPop .secondPayPopBtn span:last-child {
+    float: right;
+    background: #C39F6B;
+    color: #FFF;
+}
+
+#confirmPayPop .secondPayPopCon {
+    padding: .2rem 10% .1rem;
+}
+
+/* 清除浮动 */
+.fixedClear:after {
+    content: '';
+    display: block;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+}
+
+/* 弹框 */
+.show-alert {
+    display: none;
+    overflow: hidden;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 60%;
+    margin-left: -30%;
+    color: #fff;
+    z-index: 99999;
+    text-align: center;
+    border-radius: 4px;
+    font-size: .14rem;
+}
+
+.pop-con {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: inline-block;
+    border-radius: 4px;
+    padding: .2rem;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.otherLic {
+    background-color: #fff;
+    padding: 0 8% 0.5rem 8%;
+}
+
+.otherLicense p {
+    background: url("image/borderImg.png");
+    background-size: 100% 100%;
+    height: 2px;
+    margin: 6px 0;
+}
+
+.otherLicense button {
+    border: 0.01rem solid #c39f6b;
+    background-color: #fff;
+    color: #c39f6b;
+    padding: 6px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    float: right;
+}
+
+.otherLicense .PlateImg {
+    height: 36px;
+    vertical-align: middle;
+}
+
+.otherLicense #deleteImg {
+    height: 0.19rem;
+    float: right;
+    margin-top: 9px;
+    margin-right: 8px;
+}
+
+.otherLicense span {
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    min-width: 90px;
+    overflow: hidden;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+/*其他车牌end*/
+/*弹出层*/
+.inputCarNumberBox {
+    display: none;
+}
+
+.inputSang {
+    width: 0.37rem;
+    height: 0.37rem;
+    text-align: center;
+    line-height: 0.37rem;
+    border: 0.01rem solid #d0d0d0;
+    color: #c39f6b;
+    margin-left: 0.05rem;
+    font-size: 0.15rem;
+    border-radius: 0.05rem;
+    float: left;
+    outline: none;
+    -webkit-appearance: none;
+
+}
+
+.changeBorder {
+    border: 0.01rem solid #c39f6b;
+}
+
+.changeBorder2 {
+    border: 0.01rem solid #000;
+    color: #000;
+}
+
+.capital {
+    margin-right: 0.1rem;
+}
+
+.inputCar {
+    width: 36%;
+    height: 0.37rem;
+    border: none;
+    border-bottom: 0.01rem solid #d0d0d0;
+    padding: 0 6%;
+    font-size: 0.15rem;
+    color: #757575;
+    display: inline-block;
+    line-height: 0.37rem;
+
+}
+
+.inputCar span {
+    display: none;
+}
+
+.inputCar b {
+    font-weight: normal;
+}
+
+.inputCarNumberBox div {
+    width: 82%;
+    padding: 0.3rem 9%;
+    height: 0.37rem;
+    margin: 0 auto;
+    line-height: 0.37rem;
+
+}
+
+.regCar {
+    width: 34%;
+    height: 0.1rem;
+    color: #db525a;
+    margin-left: 38%;
+    margin-top: 0.1rem;
+    font-size: 0.1rem;
+    display: none;
+}
+
+.regLetter {
+    margin-left: 24%;
+}
+
+.regCar img {
+    margin-right: 0.05rem;
+    height: 0.1rem;
+    float: left;
+    margin-top: 0.02rem;
+}
+
+.regCar span {
+    float: left;
+}
+
+.deleteCarNumber {
+    display: none;
+}
+
+.provinceTxt {
+    display: inline-block;
+    width: 9%;
+    height: 0.45rem;
+    background: #fff;
+    border-radius: 0.05rem;
+    text-align: center;
+    line-height: 0.45rem;
+    margin: 0 1%;
+
+}
+
+.virtualKeyboard {
+    width: 100%;
+    display: none;
+    background: #ccc;
+    z-index: 20000000;
+    position: fixed;
+    bottom: 0;
+    min-height: 3.28rem;
+}
+
+.virtualKeyboard p {
+    width: 100%;
+    height: 0.5rem;
+    background: #f4f4f6;
+    color: #7ca6ec;
+    font-size: 0.16rem;
+    line-height: 0.5rem;
+}
+
+.virtualKeyboard p span {
+    margin: 0 0.2rem;
+}
+
+.keySuccess {
+    float: right;
+}
+
+.keyDelete {
+    height: 0.45rem;
+    float: right;
+    margin: 0.05rem;
+}
+
+.capitalBox {
+    display: block;
+}
+
+.provinceBox {
+    display: none;
+}
+
+.wBox {
+    display: none;
+}
+
+.inputCar span {
+    color: #c39f6b;
+}
+
+.provinceBox div {
+    width: 100%;
+    height: 0.45rem;
+    margin: 0.05rem 0;
+    padding: 0 2%;
+}
+
+.capitalBox div {
+    width: 100%;
+    height: 0.45rem;
+    margin: 0.05rem 0;
+    padding: 0 2%;
+}
+
+.wBox div {
+    width: 100%;
+    height: 0.45rem;
+    margin: 0.05rem 0;
+    padding: 0 2%;
+}

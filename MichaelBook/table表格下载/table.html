@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>table表格滑动半固定</title>
+    <style>
+        .selectBox, .xh, .tha, .thb {
+            position: relative;
+            /*border-right: 1px solid #bbb;
+            border-left: 1px solid #bbb;*/
+            background-color: white;
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .divTable {
+            position: relative;
+            width: 500px;
+            height: 200px;
+            border: 1px solid #ededed;
+            overflow: auto;
+        }
+
+        table {
+            width: 800px;
+
+        }
+
+        table, tr, td {
+            border: 1px solid #ededed;
+            border-spacing: 0;
+            text-align: center;
+        }
+
+        .selectBox, .xh, .tha, .thb {
+        }
+
+        .content_Sty {
+            background-color: blue !important;
+        }
+    </style>
+    <script src="../jQuery/jquery-1.11.1.js"></script>
+    <script src="tableDownLoad.js"></script>
+</head>
+<body>
+<div class="divTable">
+    <table id="table">
+        <tr>
+            <th class="tha">1</th>
+            <th class="thb">2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+        </tr>
+    </table>
+</div>
+
+<button type="button" id="tableButtonOne" onclick="tableButtonOneFunc()">新增一行</button>
+<input type="button" value="导出EXCEL" onClick="methodtable2excel('table');" class="botton">
+<script>
+    var a = 0;
+    a = "2000";
+    b = 10;
+    console.log(b - a);
+    console.log(typeof(b - a));
+    function tableButtonOneFunc() {
+        var html = '<tr>';
+        for (var i = 0; i < 8; i++) {
+            if (i == 0) {
+                html += '<td class="selectBox">' + i + '</td>';
+            } else if (i == 1) {
+                html += '<td class="xh">' + i + '</td>';
+            } else {
+                html += '<td>' + i + '</td>';
+            }
+        }
+        html += '</tr>';
+        document.getElementById("table").innerHTML += html;
+        $("tr").attr("onclick", "clickTrFunc(this)");
+    }
+    function clickTrFunc(ele) {
+        $(ele).addClass("content_Sty").siblings().removeClass("content_Sty");
+        console.log(ele.style);
+    }
+    $(document).ready(function () {
+        (function () {
+            /*实时监听table的文本内容是否发生改变*/
+            setInterval(function () {
+                if ($('#table').length <= 0) {
+                    clearInterval(this);
+                    return;
+                }
+                var tdList = document.getElementById('table').getElementsByTagName('td');
+                if (tdList.length > 0) {//则存在td
+                    for (var i = 0; i < tdList.length; i++) {
+                        if (tdList[i].innerHTML == "2") {
+                            tdList[i].parentNode.style.backgroundColor = "red";
+                        }
+                    }
+                }
+            }, 100);
+        })();
+    });
+    function scrollStart(scrollLeftVal) {
+        $(".selectBox").each(function () {
+            $(this).css("left", (scrollLeftVal + "px"));
+        });
+        $(".xh").each(function () {
+            $(this).css("left", (scrollLeftVal) + "px");
+        });
+        $(".tha").each(function () {
+            $(this).css("left", (scrollLeftVal) + "px");
+        });
+        $(".thb").each(function () {
+            $(this).css("left", (scrollLeftVal) + "px");
+        });
+    }
+    $(function () {
+        /*监听table滑动，左侧位置固定*/
+        $(".divTable").scroll(function () {
+            var scrollLeftVal = $(".divTable").scrollLeft() - 2;
+            console.log(scrollLeftVal);
+            scrollStart(scrollLeftVal);
+        });
+    });
+</script>
+</body>
+</html>

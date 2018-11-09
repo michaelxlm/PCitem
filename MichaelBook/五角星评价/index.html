@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <title>纯css3星星评分</title>
+    <style>
+        form{width:90%;max-width:200px;margin:0 auto;}
+        h2{text-align:center;margin-top:5em;}
+        .chrome{margin-bottom:4em;}
+        .chrome>input{position:relative;margin-right:1em;border:0;background:transparent;color:gold;-webkit-transition:color .8s;
+            transition:color .8s;}
+        .chrome>input:nth-of-type(1){display:none;}
+        .chrome>input:before{position:absolute;content:"★";left:0;top:0;font-size:32px;height:100%;width:100%;background:#FFF;cursor:pointer;}
+        .chrome>input:checked~input{color:#666;}
+
+        .all>input{opacity:0;position:absolute;width:2em;height:2em;margin:0;cursor:pointer;}
+        .all>input:nth-of-type(1),
+        .all>span:nth-of-type(1){display:none;}
+        .all>span{font-size:2em;color:gold;
+            -webkit-transition:color .8s;
+            transition:color .8s;
+        }
+        .all>input:checked~span{color:#666;}
+        .all>input:checked+span{color:gold;}
+    </style>
+</head>
+<body>
+<h2>纯css3星星评分</h2>
+<form>
+    chrome:
+    <p class="chrome">
+        <input type="radio" name="a" value="0" checked="checked" />
+        <input type="radio" name="a" value="1" />
+        <input type="radio" name="a" value="2" />
+        <input type="radio" name="a" value="3" />
+        <input type="radio" name="a" value="4" />
+        <input type="radio" name="a" value="5" />
+    </p>
+
+    css3兼容:
+    <p class="all">
+        <input type="radio" name="b" value="0" checked="checked" />
+        <span>★</span>
+        <input type="radio" name="b" value="1" />
+        <span>★</span>
+        <input type="radio" name="b" value="2" />
+        <span>★</span>
+        <input type="radio" name="b" value="3" />
+        <span>★</span>
+        <input type="radio" name="b" value="4" />
+        <span>★</span>
+        <input type="radio" name="b" value="5" />
+        <span>★</span>
+    </p>
+</form>
+<!--原文链接 http://www.w3cfuns.com/notes/11445/e7aee4ec375393f7ce3951ad1a93e151.html -->
+</body>
+</html>

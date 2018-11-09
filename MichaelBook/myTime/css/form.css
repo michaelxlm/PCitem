@@ -1,0 +1,62 @@
+#form {
+    width: 98%;
+    margin: 0 auto;
+}
+input {
+    width: 98%;
+    border-color: #878787;
+    border-style: solid;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 1px;
+    border-left-width: 0;
+    outline: none;
+}
+#form fieldset {
+    text-align: center;
+}
+
+#form legend {
+    margin: 0 auto;
+}
+
+#form label {
+    display: block;
+    line-height: 2rem;
+    width: 300px;
+    margin: 0 auto;
+    text-align: right;
+}
+
+#form input[type="number"] {
+
+}
+
+/*隐藏input框上下箭头*/
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+/*清除input默认样式*/
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+#form input ,#form textarea{
+    display: inline-block;
+    width: 200px;
+}
+@media only screen and (max-width: 400px) {
+    #form input,#form textarea{
+        width: 88%;
+    }
+    #form label{
+        text-align: center;
+        width: 90%;
+    }
+}

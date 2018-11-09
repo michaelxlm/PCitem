@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="description" content="">
+    <title>发送邮件</title>
+    <style>
+        form {
+            width: 80%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<a href="mailto:收件人邮箱?subject=test&cc=抄送人邮箱&subject=主题&body=内容">调用邮箱本地发送邮件</a>
+<form action="">
+    <input type="email" placeholder="收件人" name="to">
+    <input type="email" placeholder="抄送人" name="cc">
+    <input type="email" placeholder="暗抄送人" name="bcc">
+    <input type="text" placeholder="主题" name="subject">
+    <textarea name="body" id="" cols="30" placeholder="内容" rows="10"></textarea>
+    <button type="reset">重置</button>
+    <button type="button" onclick="mailSend()">调用本地邮箱发送邮件</button>
+</form>
+<script language="JavaScript">
+    /*js调用本地邮箱发送邮件*/
+
+    function mailSend() {
+        var who = prompt("请输入收件人邮箱: ", "sample@sample.net");
+        var what = prompt("输入主题: ", "none");
+        if (confirm("你确定要向" + who + "发送主题为 " + what + "的邮件么?") == true) {
+            parent.location.href = 'mailto:' + who + '?subject=' + what + '';
+        }
+    }
+</script>
+</body>
+</html>

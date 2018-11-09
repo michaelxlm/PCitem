@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid布局</title>
+    <style>
+        .wrapper{
+            display:grid;
+            grid-template-columns:100px 100px 100px;
+            grid-template-rows:50px 50px;
+            border: 1px solid #ccc;
+            line-height: 50px;
+            margin: 4%;
+        }
+        .item1 {
+            grid-column-start: 1;
+            grid-column-end: 4;
+        }
+        .item2 {
+            grid-column: 1 / 4;
+        }
+        .divItem{
+            text-align: center;
+            border: 1px solid white;
+        }
+        .divItem:nth-of-type(n){
+            background-color: blue;
+        }
+        .divItem:nth-of-type(2n){
+            background-color: red;
+        }
+
+        .item11 {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+        .item13 {
+            grid-row-start: 2;
+            grid-row-end: 4;
+        }
+        .item14 {
+            grid-column-start: 2;
+            grid-column-end: 4;
+        }
+    </style>
+</head>
+<body>
+<h1>Grid布局全新的css网站布局</h1>
+<p>CSS Grid 布局由两个核心组成部分是 wrapper（父元素）和 items（子元素）。 wrapper 是实际的 grid(网格)，items 是 grid(网格) 内的内容。</p>
+<div class="wrapper">
+    <div class="item1 divItem">1</div>
+    <div class="item2 divItem">2</div>
+    <div class="item3 divItem">3</div>
+    <div class="item4 divItem">4</div>
+    <div class="item5 divItem">5</div>
+    <div class="item6 divItem">6</div>
+</div>
+<div class="wrapper">
+    <div class="item11 divItem">1</div>
+    <div class="item12 divItem">2</div>
+    <div class="item13 divItem">3</div>
+    <div class="item14 divItem">4</div>
+    <div class="item15 divItem">5</div>
+    <div class="item16 divItem">6</div>
+</div>
+</body>
+</html>

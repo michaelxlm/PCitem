@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>人脸识别</title>
+    <script src="js/jQuery/jquery-1.11.1.js"></script>
+    <style type="text/css">
+        #faceStart {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(242, 245, 249, 1);
+            text-align: center;
+            margin: 0;
+        }
+
+        #faceStart .titleDiv {
+            background-color: rgba(215, 222, 233, 1);
+            text-align: center;
+            line-height: 1.2rem;
+            padding: 0.5rem 0;
+            color: rgba(129, 142, 173, 1);
+            font-size: 12px;
+        }
+
+        #faceStart .titleDiv img {
+            width: 1.2rem;
+            height: 1.2rem;
+            vertical-align: middle;
+        }
+
+        #faceStart .titleDiv span {
+            width: 50%;
+            display: block;
+            margin: 0 auto;
+            font-size: 0.75rem;
+        }
+
+        #faceStart .FaceImgDiv {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        #faceStart .FaceImgDiv img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #faceStart .faceStartButton {
+            border-radius: 100%;
+            font-size: 0.75rem;
+            margin: 1.5rem auto;
+        }
+
+        #faceStart .bigStart {
+            width: 9rem;
+            height: 9rem;
+            border: 1px dashed #F63854;
+        }
+
+        #faceStart .bigEnd {
+            width: 9rem;
+            height: 9rem;
+            border: 1px dashed #259B24;
+        }
+
+        #faceStart .initStart {
+            width: 6rem;
+            height: 6rem;
+            line-height: 6rem;
+            background-color: white;
+            animation: faceStart 1s infinite linear;
+            -moz-animation: faceStart 1s infinite linear; /* Firefox */
+            -webkit-animation: faceStart 1s infinite linear; /* Safari 和 Chrome */
+            -o-animation: faceStart 1s infinite linear; /* Opera */
+        }
+
+        #faceStart .initEnd {
+            width: 6rem;
+            height: 6rem;
+            position: relative;
+        }
+
+        #faceStart .initEnd #img11 {
+            position: absolute;
+            top: 1.7rem;
+            width: 3rem;
+            left: 1.5rem;
+            height: 2.6rem;
+            animation: faceEND 1s infinite linear;
+            -moz-animation: faceEND 1s infinite linear;
+            -webkit-animation: faceEND 1s infinite linear;
+            -o-animation: faceEND 1s infinite linear;
+            padding: 0.6rem;
+            box-sizing: border-box;
+        }
+
+        #faceStart .initEnd #img12 {
+            width: 5.5rem;
+            height: 5.5rem;
+            margin-left: 0.3rem;
+            animation: faceENDImg 1s infinite linear;
+            -moz-animation: faceENDImg 1s infinite linear;
+            -webkit-animation: faceENDImg 1s infinite linear;
+            -o-animation: faceENDImg 1s infinite linear;
+            padding: 0.6rem;
+            box-sizing: border-box;
+        }
+
+        @keyframes faceStart {
+            0% {
+            }
+            33% {
+                box-shadow: 0 0 14px 3px #F63854;
+            }
+            66% {
+                box-shadow: 0 0 14px 5px #F63854;
+            }
+            100% {
+                box-shadow: 0 0 18px 7px #F63854;
+            }
+        }
+
+        @keyframes faceEND {
+            0% {
+                transform: scale(1);
+            }
+            33% {
+                transform: scale(1.3);
+            }
+            66% {
+                transform: scale(1.6);
+            }
+            100% {
+                transform: scale(1.9);
+            }
+        }
+
+        @keyframes faceENDImg {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            33% {
+                transform: scale(1.3);
+                opacity: 0.6;
+            }
+            66% {
+                transform: scale(1.6);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1.9);
+                opacity: 0;
+            }
+        }
+
+    </style>
+    <script src="js/cookie/jquery.cookie.js"></script>
+    <script src="js/ajax/ajax.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body id="faceStart">
+<div class="titleDiv">
+    <span>
+        <img src="img/imgTRUE.png" id="imgTrue" onclick="imgClick('1')"/>
+         <img src="img/imgFalse.png" id="imgFalse" style="padding: 0.16rem;box-sizing: border-box;"
+              onclick="imgClick('2')"/>
+        为保证投保人本人操作
+    </span>
+    <span>
+        将上传投保人照片进行人脸识别
+    </span>
+</div>
+<div class="FaceImgDiv">
+    <img src="img/imgface.png"/>
+</div>
+<div id="faceStartButton" onclick="faceStartFunc()" class="faceStartButton bigStart">
+    <div class="faceStartButton initStart"> 开始人脸识别</div>
+</div>
+<div id="faceEndButton" onclick="faceEndFunc()" class="faceStartButton bigEnd">
+    <div class="faceStartButton initEnd"><img src="img/11.png" id="img11"/><img src="img/12.png" id="img12"/></div>
+</div>
+
+<script>
+    var imgStates;
+    function imgClick(ele) {
+        if (ele == "1") {
+            $("#imgTrue").css("display", "none");
+            $("#imgFalse").css("display", "inline-block");
+            imgStates = false;
+        } else {
+            $("#imgFalse").css("display", "none");
+            $("#imgTrue").css("display", "inline-block");
+            imgStates = true;
+        }
+    }
+    /*获取url中"?"符后的字串*/
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = {};
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            var strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    var dataUrl, Request;
+    Request = GetRequest();
+    console.log(Request);
+    var lisr = [];
+    console.log(lisr);
+    $(function () {
+        imgClick("2");
+        $("#loading").hide();
+        var faceStartButton = $("#faceStartButton");
+        var faceEndButton = $("#faceEndButton");
+        faceEndButton.hide();
+        console.log(Request);
+        if (Request.code == "0") {
+            faceEndButton.show();
+            faceStartButton.hide();
+            console.log("人脸识别成功");
+        } else {
+            faceEndButton.hide();
+            faceStartButton.show();
+            console.log("人脸识别失败");
+            $("#loading").show();
+            var dataLists = {
+                url: "h5faceRecognition/user",
+                data: {
+                    id: Request.id
+                }
+            };
+            NTAjax(dataLists, function (data) {
+                $("#loading").hide();
+                if (data.result) {
+                    console.log(data);
+                    dataUrl = data.object;
+                    var datas = {
+                        userid: data.object.id,
+                        name: data.object.name,
+                        idNo: data.object.idNo,
+                        idType: data.object.idType
+                    };
+                    $.cookie("idNo", dataUrl.idNo);
+                    $.cookie("id", dataUrl.id);
+                    $.cookie("idType", dataUrl.idType);
+                    fnFaceRec(datas);
+                } else {
+                    return alertModelAutomatic(data.info);
+                }
+            });
+
+        }
+    });
+    /*初始化查询信息*/
+    function fnFaceRec(option) {
+        console.log(option);
+        var dataList = {
+            url: "h5faceRecognition/getRecognFace",
+            data: option
+        };
+        NTAjax(dataList, function (data) {
+            if (data.result) {
+                console.log(data);
+                var payFormHtml = "";
+                //循环遍历参数
+                $.each(data.object, function (key, value) {
+                    if (key != "result" && key != "message") {
+                        var temp = "<input type='hidden' name='" + key + "' value='" + value + "' />";
+                        payFormHtml += temp;
+                    }
+                });
+                $('body').append('<form id="faceFrom" action="https://ida.webank.com/api/h5/login"></form>');
+                $("#faceFrom").append(payFormHtml);
+            } else {
+                return alertModelAutomatic(data.info);
+            }
+        });
+    }
+    /*点击开始人脸识别*/
+    function faceStartFunc() {
+        console.log(imgStates);
+        if (imgStates) {
+            console.log(imgStates);
+            $("#faceFrom").submit();
+        }
+    }
+    /*人脸识别成功*/
+    function faceEndFunc() {
+        $("#loading").show();
+        var option = {
+            idNo: $.cookie("idNo"),
+            idtype: $.cookie("idType"),
+            userid: $.cookie("id")
+        };
+        var dataList = {
+            url: "axSale/autograph/downloadPdf",
+            data: option
+        };
+        NTAjax(dataList, function (data) {
+            $("#loading").hide();
+            console.log(data);
+            if (data.result) {
+                window.location.href = 'pdfshow.html?id=' + $.cookie("id") + '&url=' + data.object.path + '';
+            } else {
+                return alertModelAutomatic(data.info);
+            }
+        });
+    }
+</script>
+</body>
+</html>

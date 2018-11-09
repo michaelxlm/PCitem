@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS-sprites（雪碧图）</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #mainBody {
+            position: relative;
+            width: 100px;
+            height: 150px;
+            border: solid 2px #fff;
+            padding: 2px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            display: block;
+            height: 25px;
+            line-height: 25px;
+            overflow: hidden;
+            margin: 5px;
+            border-bottom: 3px solid #dedede
+        }
+
+        h3 {
+            font-weight: 100;
+            font-size: 14px;
+            text-indent: 10px;
+        }
+
+        li i {
+            background: url(image/spritesImg.jpg) no-repeat;
+            display: inline;
+            width: 25px;
+            height: 25px;
+            float: left;
+        }
+
+        .sp-1 i {
+            background-position: 0 0;
+        }
+
+        .sp-2 i {
+            background-position: -26px 0;
+        }
+
+        .sp-3 i {
+            background-position: -26px -27px;
+        }
+
+        .sp-4 i {
+            background-position: 0 -27px;
+        }
+    </style>
+</head>
+<body>
+<h1>雪碧图</h1>
+<p>CSS
+    sprite即把网页中比较小的一些小图片整合到一张图片文件中，再利用CSS的background-image属性插入图片，然后利用background-position属性对图片所需要的部分进行精确定位，从而达到减少服务器请求次数的目的。</p>
+<div id="mainBody">
+    <ul>
+        <li class="sp-1">
+            <i></i>
+            <h3>主页</h3>
+        </li>
+        <li class="sp-2">
+            <i></i>
+            <h3>空间</h3>
+        </li>
+        <li class="sp-3">
+            <i></i>
+            <h3>网络</h3>
+        </li>
+        <li class="sp-4">
+            <i></i>
+            <h3>其他</h3>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

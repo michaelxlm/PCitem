@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>jQuery人性化表单标签提示</title>
+    <script type="text/javascript" src="../../jQuery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        !function ($) {
+            var defaults = {
+                position: "top",
+                animationTime: 500,
+                easing: "ease-in-out",
+                offset: 20,
+                hidePlaceholderOnFocus: true
+            };
+            $.fn.animateLabel = function (settings, btn) {
+                var position = btn.data("position") || settings.position,
+                        posx = 0,
+                        posy = 0;
+                $(this).css({
+                    "left": "auto",
+                    "right": "auto",
+                    "position": "absolute",
+                    "-webkit-transition": "all " + settings.animationTime + "ms " + settings.easing,
+                    "-moz-transition": "all " + settings.animationTime + "ms " + settings.easing,
+                    "-ms-transition": "all " + settings.animationTime + "ms " + settings.easing,
+                    "transition": "all " + settings.animationTime + "ms " + settings.easing
+                });
+                switch (position) {
+                    case 'top':
+                        posx = 0;
+                        posy = ($(this).height() + settings.offset) * -1;
+                        $(this).css({
+                            "top": "0",
+                            "opacity": "1",
+                            "-webkit-transform": "translate3d(" + posx + ", " + posy + "px, 0)",
+                            "-moz-transform": "translate3d(" + posx + ", " + posy + "px, 0)",
+                            "-ms-transform": "translate3d(" + posx + ", " + posy + "px, 0)",
+                            "transform": "translate3d(" + posx + ", " + posy + "px, 0)"
+                        });
+                        break;
+                    case 'bottom':
+                        posx = 0;
+                        posy = ($(this).height() + settings.offset);
+                        $(this).css({
+                            "bottom": "0",
+                            "opacity": "1",
+                            "-webkit-transform": "translate3d(" + posx + ", " + posy + "px, 0)",
+                            "-moz-transform": "translate3d(" + posx + ", " + posy + "px, 0)",
+                            "-ms-transform": "translate3d(" + posx + ", " + posy + "px, 0)",
+                            "transform": "translate3d(" + posx + ", " + posy + "px, 0)"
+                        });
+                        break;
+                    case 'left':
+                        posx = ($(this).width() + settings.offset) * -1;
+                        posy = 0;
+                        $(this).css({
+                            "left": 0,
+                            "top": 0,
+                            "opacity": "1",
+                            "-webkit-transform": "translate3d(" + posx + "px, " + posy + "px, 0)",
+                            "-moz-transform": "translate3d(" + posx + "px, " + posy + "px, 0)",
+                            "-ms-transform": "translate3d(" + posx + "px, " + posy + "px, 0)",
+                            "transform": "translate3d(" + posx + "px, " + posy + "px, 0)"
+                        });
+                        break;
+                    case 'right':
+                        posx = $(this).width() + settings.offset;
+                        posy = 0;
+                        $(this).css({
+                            "right": 0,
+                            "top": 0,
+                            "opacity": "1",
+                            "-webkit-transform": "translate3d(" + posx + "px, " + posy + "px, 0)",
+                            "-moz-transform": "translate3d(" + posx + "px, " + posy + "px, 0)",
+                            "-ms-transform": "translate3d(" + posx + "px, " + posy + "px, 0)",
+                            "transform": "translate3d(" + posx + "px, " + posy + "px, 0)"
+                        });
+                        break;
+                }
+            };
+            $.fn.removeAnimate = function (settings, btn) {
+                var position = btn.data("position") || settings.position,
+                        posx = 0,
+                        posy = 0;
+                $(this).css({
+                    "top": "0",
+                    "opacity": "0",
+                    "-webkit-transform": "translate3d(" + posx + ", " + posy + "px, 0)",
+                    "-moz-transform": "translate3d(" + posx + ", " + posy + "px, 0)",
+                    "-ms-transform": "translate3d(" + posx + ", " + posy + "px, 0)",
+                    "transform": "translate3d(" + posx + ", " + posy + "px, 0)"
+                });
+            };
+            $.fn.label_better = function (options) {
+                var settings = $.extend({}, defaults, options),
+                        el = $(this),
+                        triggerIn = "focus",
+                        triggerOut = "blur";
+                if (settings.easing == "bounce") settings.easing = "cubic-bezier(0.175, 0.885, 0.420, 1.310)";
+                el.each(function (index, value) {
+                    var btn = $(this),
+                            position = btn.data("position") || settings.position;
+                    btn.wrapAll("<div class='lb_wrap' style='position:relative; display: inline;'></div>");
+                    if (btn.val().length > 0) {
+                        var text = btn.data("new-placeholder") || btn.attr("placeholder");
+                        $("<div class='lb_label " + position + "'>" + text + "</div>").css("opacity", "0").insertAfter(btn).animateLabel(settings, btn);
+                    }
+                    btn.bind(triggerIn, function () {
+                        if (btn.val().length < 1) {
+                            var text = btn.data("new-placeholder") || btn.attr("placeholder"),
+                                    position = btn.data("position") || settings.position;
+                            $("<div class='lb_label " + position + "'>" + text + "</div>").css("opacity", "0").insertAfter(btn).animateLabel(settings, btn);
+                        }
+                        if (settings.hidePlaceholderOnFocus == true) {
+                            btn.data("default-placeholder", btn.attr("placeholder"));
+                            btn.attr("placeholder", "")
+                        }
+                        btn.parent().find(".lb_label").addClass("active");
+                    }).bind(triggerOut, function () {
+                        if (btn.val().length < 1) {
+                            btn.parent().find(".lb_label").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
+                                $(this).remove();
+                            }).removeAnimate(settings, btn)
+                        }
+                        if (settings.hidePlaceholderOnFocus == true) {
+                            btn.attr("placeholder", btn.data("default-placeholder"));
+                            btn.data("default-placeholder", "")
+                        }
+                        btn.parent().find(".lb_label").removeClass("active");
+                    });
+                });
+            }
+        }(window.jQuery);
+    </script>
+    <style>
+        .bl_form {
+             margin: 150px 0;
+        }
+
+        .bl_form input {
+             padding-top: 15px;
+             background: rgba(255, 255, 255, 0.10);
+             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+             border: none;
+             color: white;
+             padding: 10px 15px;
+             border-radius: 25px;
+             font-size: 16px;
+             outline: none;
+        }
+
+        .lb_wrap .lb_label.top, .lb_wrap .lb_label.bottom {
+             left: 15px !important;
+        }
+
+        .lb_wrap .lb_label.left {
+             left: 0;
+        }
+
+        .lb_label {
+             font-weight: bold;
+             color: #999;
+        }
+
+        .lb_label.active {
+             color: #FFF;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(".label_better").label_better({
+                easing: "bounce"
+            });
+        });
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+ 
+<div class="wrapper">
+      
+    <form class="bl_form">
+           <input type="text" class="label_better" data-new-placeholder="Username" placeholder="Username">
+           <input type="email" class="label_better" data-new-placeholder="Email Address" placeholder="Email Address">
+           <input type="password" value="abcdefg" class="label_better" data-new-placeholder="Password"
+                  placeholder="Password">
+           <input type="password" value="abcdefg" class="label_better" data-new-placeholder="Shhh.."
+                  placeholder="Confirm Password">
+          
+    </form>
+      
+</div>
+<input type="date" id="dateTEST" onchange="dasda(this.value)">
+<script>
+    var nowTime = new Date(),
+            nowTimeYear = nowTime.getFullYear(), //年
+            nowTimeMon = addTimeZero(nowTime.getMonth() + 1), //月
+            nowTimeDay = addTimeZero(nowTime.getDate()), //日
+            nowTimeHour = addTimeZero(nowTime.getHours()), //时
+            nowTimeMin = addTimeZero(nowTime.getMinutes()); //分
+    var todayDate = nowTimeYear + '-' + nowTimeMon + '-' + nowTimeDay; //设置年月日
+    //月份日期时间，补零
+    function addTimeZero(num) {
+        if (num < 10) {
+            num = '0' + num;
+        }
+        return num;
+    }
+    function dasda(ele) {
+        console.log(ele);
+    }
+
+
+</script>
+</body>
+</html>

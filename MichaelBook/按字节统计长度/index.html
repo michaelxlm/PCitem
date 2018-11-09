@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>js区分中英文统计字符个数</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+<body>
+<input type="text" value="" id="str"><span id="showcontent"></span>
+<!-- 此处原来使用的label标签，但是设置其innerHTML的值在ie8上报错，故换为span标签 -->
+<script type="text/javascript">
+    var countnums = (function () {
+        var trim = function (strings) {
+            return (strings || "").replace(/^(\s|\u00A0)+|(\s|\u00A0)+$/g, "");//+表示匹配一次或多次，|表示或者，\s和\u00A0匹配空白字符，/^以……开头，$以……结尾，/g全局匹配,/i忽略大小写
+        }
+        return function (_str) {
+            _str = trim(_str);   //去除字符串的左右两边空格
+            var strlength = _str.length;
+            if (!strlength) {   //如果字符串长度为零，返回零
+                return 0;
+            }
+            var chinese = _str.match(/[\u4e00-\u9fa5]/g); //匹配中文，match返回包含中文的数组
+            return strlength + (chinese ? chinese.length : 0); //计算字符个数
+
+        }
+    })();
+    function count(tThis) {
+        var charnum = countnums(tThis.value);
+        var showid = document.getElementById("showcontent");
+        showid.innerHTML = "您总共输入了" + charnum + "个字符";
+
+    }
+    window.onload = function () {
+        var str = document.getElementById("str");
+        str.onkeypress = function () {
+            count(this);
+        }
+        str.onkeyup = function () {
+            count(this);
+        }
+    }
+</script>
+</body>
+</html>

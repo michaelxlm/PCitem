@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>js插入标签位置</title>
+    <style type="text/css">
+        div {
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 5px 5px 20px 5px;
+        }
+    </style>
+</head>
+<body>
+<pre>
+    var dom = {
+        innerHTML:document.getElementById('innerHTML'),
+        beforeBegin:document.getElementById('beforeBegin'),
+        afterBegin:document.getElementById('afterBegin'),
+        beforeEnd:document.getElementById('beforeEnd'),
+        afterEnd:document.getElementById('afterEnd')
+    }
+    function innerHTML_(){
+        dom.innerHTML.innerHTML +='<button onclick="alert()">点我试试</button>';
+    }
+    function beforeBegin(){
+        dom.beforeBegin.insertAdjacentHTML('beforeBegin', '<button onclick="alert()">点我试试</button>');
+    }
+    function afterBegin(){
+        dom.afterBegin.insertAdjacentHTML('afterBegin', '<button onclick="alert()">点我试试</button>');
+    }
+    function beforeEnd(){
+        dom.beforeEnd.insertAdjacentHTML('beforeEnd', '<button onclick="alert()">点我试试</button>');
+    }
+    function afterEnd(){
+        dom.afterEnd.insertAdjacentHTML('afterEnd', '<button onclick="alert()">点我试试</button>');
+    }
+</pre>
+<button onclick="innerHTML_()">innerHTML</button>
+<div id="innerHTML">我是内容</div>
+<button onclick="beforeBegin()">beforeBegin</button>
+<div id="beforeBegin">我是内容！</div>
+<button onclick="afterBegin()">afterBegin</button>
+<div id="afterBegin">我是内容！</div>
+<button onclick="beforeEnd()">beforeEnd</button>
+<div id="beforeEnd">我是内容！</div>
+<button onclick="afterEnd()">afterEnd</button>
+<div id="afterEnd">我是内容！</div>
+<br/><br/>
+<script type="text/javascript">
+    var dom = {
+        innerHTML: document.getElementById('innerHTML'),
+        beforeBegin: document.getElementById('beforeBegin'),
+        afterBegin: document.getElementById('afterBegin'),
+        beforeEnd: document.getElementById('beforeEnd'),
+        afterEnd: document.getElementById('afterEnd')
+    };
+    var buttonHtml = '<button type="button" onclick="alert()">点我试试</button>';
+    function innerHTML_() {
+        dom.innerHTML.innerHTML += buttonHtml;
+    }
+    function beforeBegin() {
+        dom.beforeBegin.insertAdjacentHTML('beforeBegin', buttonHtml);
+    }
+    function afterBegin() {
+        dom.afterBegin.insertAdjacentHTML('afterBegin', buttonHtml);
+    }
+    function beforeEnd() {
+        dom.beforeEnd.insertAdjacentHTML('beforeEnd', buttonHtml);
+    }
+    function afterEnd() {
+        dom.afterEnd.insertAdjacentHTML('afterEnd', buttonHtml);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>文字逐个显示</title>
+    <script>
+        window.onload = function () {
+            /*文字逐个显示*/
+            var story = document.getElementById('word');
+            var s = document.getElementById('show');
+            var i = 0;
+           /* timer = setInterval(function () {
+                s.innerHTML = story.innerHTML.substring(0, i);
+                i++;
+                if (s.innerHTML == story.innerHTML) {
+                    clearInterval(timer);
+                }
+            }, 500);*/
+        }
+    </script>
+    <style>
+        .sss{
+            font-size: 50px;
+            line-height: 100px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<p class="sss"></p>
+<p class="sss"></p>
+<div id="word" style="display:none;">
+    <p>最后陪你聊天那一夜，互道晚安后，才发现一直在单曲循环《不分手的恋爱》。zr</p>
+    <p>我会永远装糊涂下去，为了不再疼痛。zht</p>
+    <p>自始至终，都知道你喜欢我，但，就像当初跟你说的——我，不是个好人。所以，对不起。smc</p>
+    <p>你问我和她在一起了么，你问我为什么不是你，你问我我拿你当什么，你呵呵两字便不再联系。其实我只是不想再伤人了，与其说是难忘旧情，倒不如说是在罪赎。ww</p>
+    <p>我亦飘零久，十年来，深恩负尽，死生师友。--顾贞观《金缕曲》</p>
+    <p>夜深忽梦少年事，唯梦闲人不梦君。</p>
+    <p>人言落日是天涯，望极天涯不见家。</p>
+    <p></p>
+</div>
+<div id="show"></div>
+</body>
+</html>

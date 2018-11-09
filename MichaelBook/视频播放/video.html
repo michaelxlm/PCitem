@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>视频播放</title>
+    <script src="../jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<object type='application/x-vlc-plugin' pluginspage="http://www.videolan.org/" id='vlc' events='false' width="720"
+        height="410">
+    <param name='mrl' value='rtsp://admin:12345@192.168.10.235:554/h264/ch1/main/av_stream'/>
+    <param name='volume' value='50'/>
+    <param name='autoplay' value='true'/>
+    <param name='loop' value='false'/>
+    <param name='fullscreen' value='false'/>
+    <param name='controls' value='false'/>
+</object>
+<!--<video width="320" height="240" controls="controls" autoplay="autoplay">
+    <source src="video/yingdaVideo.webm" type="video/webm"/>
+</video>-->
+<button onclick="timeClick(new Date().getTime())"></button>
+<script>
+    $(function () {
+        //创建xhr对象
+        function createCORSXhr(url, method) {
+            var xhr = new XMLHttpRequest();
+            if ("withCredentials" in xhr) {
+                xhr.open(method, url, true);
+            } else if (typeof XDomainRequest !== "undefined") {
+                xhr = new XDomainRequest();
+                xhr.open(method, url);
+            } else
+                xhr = null;
+            return xhr;
+        }
+
+        //创建ajax请求，支持跨域
+        function sendAjaxRequest() {
+            var xhr = createCORSXhr(url, "get");
+            xhr.onload = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
+                        alert(xhr.responseText);
+                    } else {
+                        alert(" ajax error...")
+                    }
+                }
+            };
+            xhr.onerror = function () {
+                alert("error code:" + xhr.status)
+            };
+            xhr.send(null);
+        }
+
+        var url = "http://musicmini.baidu.com/app/search/searchList.php?qword={0}&ie=utf-8&page={1}";
+        sendAjaxRequest();
+        $.ajax({
+            url: '',
+            type: "get",
+            dataType: "json", //指定服务器返回的数据类型
+            success: function (data) {
+                console.log(data);
+                var result = JSON.stringify(data); //json对象转成字符串
+                console.log(result);
+            }
+        })
+
+    })
+</script>
+</body>
+</html>

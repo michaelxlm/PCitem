@@ -1,0 +1,10 @@
+<view class='useSuccess'>
+    <view class="top">
+        <view class='btn'>
+            <image src='/images/success.png' mode='widthFix'></image>
+        </view>
+        <text>使用成功</text>
+    </view>
+    <view class="text">您的车牌为 <text>{{plate}}</text> 的车辆成功领取由 <text>{{store}}</text> 提供的1张免费停车券，本次停车费用已减免，请在 <text>{{useTime}}</text> 离场，否则将产生额外费用。
+    </view>
+</view>

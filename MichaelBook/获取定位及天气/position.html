@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取定位信息和天气</title>
+    <style>
+        header {
+            text-align: right;
+        }
+    </style>
+    <script src="../jQuery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=4IU3oIAMpZhfWZsMu7xzqBBAf6vMHcoa"></script>
+</head>
+<body>
+<div>
+    <header id="time">
+    </header>
+    <main>
+        <div id="weather"></div>
+        <div id="allmap"></div>
+    </main>
+</div>
+<script>
+    var weatherSetTimeout, WeatherLists = {};
+    window.onload = function () {
+        var func = function () {
+            var date;
+            var week;
+            date = new Date();
+            week = new Array(7);
+            week[0] = "星期日";
+            week[1] = "星期一";
+            week[2] = "星期二";
+            week[3] = "星期三";
+            week[4] = "星期四";
+            week[5] = "星期五";
+            week[6] = "星期六";
+            var timeList = {
+                hour: date.getHours() + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()),
+                year: date.getFullYear(),
+                month: (date.getMonth() + 1),
+                day: date.getDate(),
+                week: week[date.getDay()]
+            };
+            var text = '<span>' + timeList.year + '</span>-' +
+                    '<span>' + timeList.month + '</span>-' +
+                    '<span>' + timeList.day + '</span>' +
+                    '<span>' + timeList.week + '</span>' +
+                    '<span>' + timeList.hour + '</span>';
+            $("#time").html(text);
+        }.bind(this);
+        //每间隔1s执行一次func()方法
+        var timer = setInterval(func, 1000);
+        func();
+        var weather = function () {
+            /*通过百度地图获取当前位置城市信息*/
+            var myCity = new BMap.LocalCity();
+            myCity.get(function (result) {
+                        console.log(result);
+                        console.log("地位城市名称:" + result.name);
+                        console.log("版本号:" + result.level);
+                        console.log("经度:" + result.center.lat);
+                        console.log("纬度:" + result.center.lng);
+                        /*通过当前位置城市信息获取天气*/
+                        $.get('https://free-api.heweather.com/s6/weather?key=28fd88d399e14ac38c3aa617c0c6b3fd&location=' + result.name
+                        ).then(function (res) {
+                            console.log(res);
+                            console.log(res.HeWeather6[0]);
+                            weatherInit(res.HeWeather6[0]);
+                        });
+                    }
+            );
+        };
+        weather();
+        /*每小时更新一次*/
+        weatherSetTimeout = setTimeout(weather, 3600000);
+    };
+    function weatherInit(ele) {
+        var text = "";
+        text += '<h1>当前位置信息</h1>';
+        text +=
+                '<p>地区／城市名称: <span>' + ele.basic.location + '</span></p> ' +
+                '<p>地区／城市ID: <span>' + ele.basic.cid + '</span></p> ' +
+                '<p>地区／城市纬度: <span>' + ele.basic.lat + '</span></p> ' +
+                '<p>地区／城市经度: <span>' + ele.basic.lon + '</span></p> ' +
+                '<p>该地区／城市的上级城市: <span>' + ele.basic.parent_city + '</span></p> ' +
+                '<p>该地区／城市所属行政区域: <span>' + ele.basic.admin_area + '</span></p> ' +
+                '<p>该地区／城市所属国家名称: <span>' + ele.basic.cnty + '</span></p> ' +
+                '<p>该地区／城市所在时区: <span>' + ele.basic.tz + '</span></p> ';
+        text += '<h1>当前天气</h1>';
+        text +=
+                '<p>云量: <span>' + ele.now.cloud + '</span></p> ' +
+                '<p>实况天气状况代码: <span>' + ele.now.cond_code + '</span></p> ' +
+                '<p>实况天气状况描述: <span>' + ele.now.cond_txt + '</span></p> ' +
+                '<p>体感温度，默认单位-摄氏度: <span>' + ele.now.fl + '</span></p> ' +
+                '<p>相对湿度: <span>' + ele.now.hum + '</span></p> ' +
+                '<p>降水量: <span>' + ele.now.pcpn + '</span></p> ' +
+                '<p>大气压强: <span>' + ele.now.pres + '</span></p> ' +
+                '<p>温度，默认单位-摄氏度: <span>' + ele.now.tmp + '</span></p> ' +
+                '<p>能见度，单位-公里: <span>' + ele.now.vis + '</span></p> ' +
+                '<p>风向360角度: <span>' + ele.now.wind_deg + '</span></p> ' +
+                '<p>风向: <span>' + ele.now.wind_dir + '</span></p> ' +
+                '<p>风力: <span>' + ele.now.wind_sc + '</span></p> ' +
+                '<p>风速，公里/小时: <span>' + ele.now.wind_spd + '</span></p> ';
+        text += '<h1> 接口更新时间</h1>';
+        text +=
+                '<p>当地时间: <span>' + ele.update.loc + '</span></p> ' +
+                '<p>UTC时间: <span>' + ele.update.utc + '</span></p> ';
+        text += lifeStyle(ele.lifestyle);
+        text += dailyForecast(ele.daily_forecast);
+        $("#weather").html(text);
+    }
+    /*编辑生活指数*/
+    function lifeStyle(ele) {
+        var style = "";
+        style += '<h1>生活指数</h1>';
+        for (var j = 0, lens = ele.length; j < lens; j++) {
+            if (ele[j].type == "comf") {
+                style +=
+                        '<p>生活指数类型: <span>舒适度指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "cw") {
+                style +=
+                        '<p>生活指数类型: <span>洗车指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "drsg") {
+                style +=
+                        '<p>生活指数类型: <span>穿衣指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "flu") {
+                style +=
+                        '<p>生活指数类型: <span>感冒指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "sport") {
+                style +=
+                        '<p>生活指数类型: <span>运动指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "trav") {
+                style +=
+                        '<p>生活指数类型: <span>旅游指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "uv") {
+                style +=
+                        '<p>生活指数类型: <span>紫外线指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "air") {
+                style +=
+                        '<p>生活指数类型: <span>空气污染扩散条件指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "ac") {
+                style +=
+                        '<p>生活指数类型: <span>空调开启指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "ag") {
+                style +=
+                        '<p>生活指数类型: <span>过敏指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "gl") {
+                style +=
+                        '<p>生活指数类型: <span>太阳镜指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "mu") {
+                style +=
+                        '<p>生活指数类型: <span>化妆指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "airc") {
+                style +=
+                        '<p>生活指数类型: <span>晾晒指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "ptfc") {
+                style +=
+                        '<p>生活指数类型: <span>交通指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "fsh") {
+                style +=
+                        '<p>生活指数类型: <span>钓鱼指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+            if (ele[j].type == "spi") {
+                style +=
+                        '<p>生活指数类型: <span>防晒指数</span></p> ' +
+                        '<p>生活指数简介: <span>' + ele[j].brf + '</span></p> ' +
+                        '<p>生活指数详细描述: <span>' + ele[j].txt + '</span></p> ';
+            }
+        }
+        return style;
+    }
+    /*编辑近三天天气*/
+    function dailyForecast(ele) {
+        var cast = "";
+        cast += '<h1>近三天天气</h1>';
+        for (var i = 0, len = ele.length; i < len; i++) {
+            if (i == 0) {
+                cast += '<h2>今天</h2>';
+            } else if (i == 1) {
+                cast += '<h2>明天</h2>';
+            } else if (i == 2) {
+                cast += '<h2>后天</h2>';
+            }
+
+            cast +=
+                    '<p>预报日期: <span>' + ele[i].date + '</span></p> ' +
+                    '<p>日出时间: <span>' + ele[i].sr + '</span></p> ' +
+                    '<p>日落时间: <span>' + ele[i].ss + '</span></p> ' +
+                    '<p>月升时间: <span>' + ele[i].mr + '</span></p> ' +
+                    '<p>月落时间: <span>' + ele[i].ms + '</span></p> ' +
+                    '<p>最高温度: <span>' + ele[i].tmp_max + '</span></p> ' +
+                    '<p>最低温度: <span>' + ele[i].tmp_min + '</span></p> ' +
+                    '<p>白天天气状况代码: <span>' + ele[i].cond_code_d + '</span></p> ' +
+                    '<p>晚间天气状况代码: <span>' + ele[i].cond_code_n + '</span></p> ' +
+                    '<p>白天天气状况描述: <span>' + ele[i].cond_txt_d + '</span></p> ' +
+                    '<p>晚间天气状况描述: <span>' + ele[i].cond_txt_n + '</span></p> ' +
+                    '<p>风向360角度: <span>' + ele[i].wind_deg + '</span></p> ' +
+                    '<p>风向: <span>' + ele[i].wind_dir + '</span></p> ' +
+                    '<p>风力: <span>' + ele[i].wind_sc + '</span></p> ' +
+                    '<p>风速，公里/小时: <span>' + ele[i].wind_spd + '</span></p> ' +
+                    '<p>相对湿度: <span>' + ele[i].hum + '</span></p> ' +
+                    '<p>降水量: <span>' + ele[i].pcpn + '</span></p> ' +
+                    '<p>降水概率: <span>' + ele[i].pop + '</span></p> ' +
+                    '<p>大气压强: <span>' + ele[i].pres + '</span></p> ' +
+                    '<p>紫外线强度指数: <span>' + ele[i].uv_index + '</span></p> ' +
+                    '<p>能见度，单位-公里: <span>' + ele[i].vis + '</span></p> ';
+        }
+        return cast;
+    }
+</script>
+</body>
+</html>

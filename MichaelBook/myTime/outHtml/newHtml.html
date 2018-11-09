@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        /*定时关闭当前页面*/
+        function closeThisHtml() {
+            setTimeout("self.close()", 10000); //毫秒
+            console.log(window.screen.availHeight);
+            var bottomDivHeight = window.screen.availHeight - 380;
+            console.log(bottomDivHeight);
+            document.getElementById("bottomdivs").style.height = bottomDivHeight;
+        }
+        /*
+        设置页面兼容手机：<meta name="viewport"
+         content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+         charset="UTF-8"/>
+         添加搜索关键字：<meta content="always" name="referrer">
+         */
+        /*
+        * body标签上使用
+        * onunload: 浏览器离开页面时弹出窗口
+        * onload：浏览器读页面时弹出窗口
+        * */
+        /*
+        * 嵌入页面
+         <div>
+         <object id="ObjectID" type="text/x-scriptlet" data="html/json.html" width=100% height=100%></object>
+         </div>
+        * */
+    </script>
+</head>
+<body onload="closeThisHtml()">
+<p>dasdada</p>
+<div id="bottomdivs" style="background-color: red"></div>
+</body>
+</html>

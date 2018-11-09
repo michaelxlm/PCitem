@@ -1,0 +1,303 @@
+*, div, p, span, h1, h2, h3, h4, h5, h6, ul, li, ol, a, img {
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.center {
+    width: 100%;
+    padding: 40px 10%;
+    box-sizing: border-box;
+}
+
+.left, .right {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/*标题*/
+.title {
+    margin: 40px auto;
+    display: block;
+    font-size: 34px;
+    vertical-align: super;
+    text-align: center;
+    color: #414042;
+}
+
+.title:before {
+    width: 38px;
+}
+
+.title:after {
+    width: 16px;
+}
+
+.title:before, .title:after {
+    content: ' ';
+    height: 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    margin: 0 16px;
+}
+
+.mainDiv {
+    width: 100%;
+    background: #1f1f1f;
+    color: #ffffff;
+}
+
+/*顶部导航*/
+.header {
+    line-height: 50px;
+    height: 50px;
+    border-bottom: 2px solid #dcdcdc;
+}
+
+.header img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 2%;
+}
+
+.header ul {
+    display: inline-block;
+    list-style-type: none;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-padding-start: 0;
+    vertical-align: middle;
+}
+
+.header ul li {
+    display: inline-block;
+    float: left;
+    text-align: center;
+    width: 80px;
+}
+
+.header div {
+    vertical-align: middle;
+    display: inline-block;
+    padding: 0 4%;
+    float: right;
+    font-size: 18px;
+}
+
+.header a {
+    text-decoration: none;
+    color: white;
+}
+
+.main {
+    width: 100%;
+    background: url(../image/mainBack.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-origin: padding-box;
+    background-size: 75% 90%;
+}
+
+.main .mainWord {
+    padding: 12% 0 0 4%;
+}
+
+.main .mainWord h1, .main .mainWord button {
+    margin: 20px 0;
+}
+
+.main .mainWord p span {
+    font-size: 20px;
+}
+
+.main .mainWord button {
+    background: -webkit-linear-gradient(left bottom, orange, yellow);
+    background: -o-linear-gradient(left bottom, orange, yellow);
+    background: -moz-linear-gradient(left bottom, orange, yellow);
+    background: linear-gradient(left bottom, orange, yellow);
+    line-height: 50px;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    -webkit-appearance: none;
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: #3c3c3c;
+    outline: none;
+}
+
+/*EDGEON愿景*/
+.Vision {
+
+}
+
+.Vision .left {
+    width: 40%;
+}
+
+.Vision .right {
+    margin-left: 6%;
+    width: 53%;
+}
+
+.Vision .right .Module {
+    display: inline-block;
+    vertical-align: top;
+    width: 46%;
+    line-height: 24px;
+    margin-left: 3%;
+}
+
+.Vision .right .Module h2 {
+    margin-bottom: 10px;
+}
+
+/*应用场景*/
+.Scenes {
+    background-color: #f8f8f8;
+}
+
+.Scenes .card {
+    height: 400px;
+    border-radius: 8px;
+    display: inline-block;
+    background-color: #1e1f1f;
+    color: white;
+    width: 29%;
+    margin: 0 2%;
+    vertical-align: middle;
+    box-shadow: 4px 4px 4px #5c5c5c;
+}
+
+.Scenes .card p {
+    text-align: center;
+}
+
+.Scenes .card p:first-of-type {
+    color: #dcb938;
+}
+
+.Scenes .card img {
+    width: 180px;
+    display: block;
+    margin: 0 auto;
+}
+
+.Scenes .card ul {
+    font-size: 12px;
+    width: 84%;
+    margin: 24px auto 0 auto;
+    letter-spacing: 1px;
+    line-height: 30px;
+    list-style: none;
+    color: #cacbcd;
+}
+
+.Scenes .card ul:before {
+    content: '';
+    border-top: 1px solid #dcb938;
+    width: 20px;
+    display: block;
+    margin-left: 10px;
+}
+
+.Scenes .card ul li:before {
+    content: '.';
+    color: #dcb938;
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding: 0 6px;
+    font-size: 24px;
+}
+
+/*体系结构*/
+.structure {
+
+}
+
+.structure .title {
+    margin-bottom: 0;
+}
+
+.structure .Secondary {
+    text-align: center;
+    color: #93908b;
+    font-size: 22px;
+    margin: 10px 0 40px 0;
+}
+
+.structure .left {
+    width: 56%;
+}
+
+.structure .right {
+    width: 35%;
+    margin-left: 8%;
+}
+
+.structure .right p {
+    padding: 4px;
+    border: 1px solid #ffdb5c;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #cac9c6;
+}
+
+.structure .right p span, .structure .right p img {
+    display: inline-block;
+}
+
+/*数字孪生*/
+.Twins {
+
+}
+
+.Twins .all {
+    width: 100%;
+}
+
+.Twins .Beacon .left, .Twins .Linkage .left {
+    width: 55%;
+}
+
+.Twins .manage .left {
+    width: 55%;
+    margin-left: 4%;
+}
+
+.Twins .manage .right {
+    width: 40%;
+}
+
+.Twins .Beacon .right, .Twins .Linkage .right {
+    width: 40%;
+    margin-left: 4%;
+}
+
+.Twins .manage {
+    background-color: #f8f8f8;
+}
+
+/*关于我们*/
+.about {
+    background-color: #f8f8f8;
+}
+
+.about img:last-child {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+/*底部*/
+.footer {
+    background-color: #1e1f1f;
+}
+
+.footer img {
+    width: 100%;
+}

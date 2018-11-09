@@ -1,0 +1,91 @@
+<div>
+    <h2>“blockquote”与q</h2>
+    均为闭合性标签。
+    <blockquote cite="http://www.w3school.com.cn/tags/tag_blockquote.asp" class="label">
+        文本都会从常规文本中分离出来，经常会在左、右两边进行缩进（增加外边距），而且有时会使用斜体。<br/>
+        <div class="cssTextShow">
+            自带样式属性：
+            display: block;
+            -webkit-margin-before: 1em;
+            -webkit-margin-after: 1em;
+            -webkit-margin-start: 40px;
+            -webkit-margin-end: 40px;
+        </div>
+
+        <p>p如需把页面作为 strict XHTML 进行验证，那么 blockquote 元素必须包含块级元素，比如这样p</p>
+    </blockquote>
+    <p> cite="http://www.w3school.com.cn/tags/tag_blockquote.asp" ---cite 属性规定引用的来源。主流浏览器均不支持 cite
+        属性。不过，搜索引擎可能会使用该属性获得更多有关引用的信息。</p>
+    <q class="label"> q标签用于简短的行内引用。如果需要从周围内容分离出来比较长的部分（通常显示为缩进的块），请使用 blockquote标签。浏览器经常在引用的内容周围添加引号。</q>
+    <p>可通过js创建：var x = document.createElement("BLOCKQUOTE");</p>
+</div>
+<div>
+    <h2>bdo&&bdi</h2>
+    <p><bdo dir="ltr" class="label">元素可覆盖默认的文本方向。</bdo><br>
+        <bdo dir="rtl" class="label">元素可覆盖默认的文本方向。</bdo><br>
+    </p>
+    <div class="cssTextShow">
+        自带样式属性：
+        unicode-bidi: bidi-override;
+    </div>
+    <bdo dir="rtl">
+        bdi标签允许您设置一段文本，使其脱离其父元素的文本方向设置。
+
+        <bdi dir="ltr" class="label">内层脱离
+
+        </bdi>
+        <div class="cssTextShow">
+            自带样式属性：
+            unicode-bidi: -webkit-isolate;
+        </div>
+    </bdo>
+
+</div>
+<div>
+    <h2>display</h2>
+    <p>none 此元素不会被显示。
+        block 此元素将显示为块级元素，此元素前后会带有换行符。
+        inline 默认。此元素会被显示为内联元素，元素前后没有换行符。
+        inline-block 行内块元素。（CSS2.1新增的值）
+        list-item 此元素会作为列表显示。
+        run-in 此元素会根据上下文作为块级元素或内联元素显示。
+        compact CSS 中有值compact，不过由于缺乏广泛支持，已经从CSS2.1 中删除。
+        marker CSS 中有值marker，不过由于缺乏广泛支持，已经从CSS2.1 中删除。
+        table 此元素会作为块级表格来显示（类似
+    <table></table>
+    ），表格前后带有换行符。
+    inline-table 此元素会作为内联表格来显示（类似
+    <table></table>
+    ），表格前后没有换行符。
+    table-row-group 此元素会作为一个或多个行的分组来显示（类似
+    <tbody></tbody>
+    ）。
+    table-header-group 此元素会作为一个或多个行的分组来显示（类似
+    <thead></thead>
+    ）。
+    table-footer-group 此元素会作为一个或多个行的分组来显示（类似
+    <tfoot></tfoot>
+    ）。
+    table-row 此元素会作为一个表格行显示（类似
+    <tr></tr>
+    ）。
+    table-column-group 此元素会作为一个或多个列的分组来显示（类似
+    <colgroup></colgroup>
+    ）。
+    table-column 此元素会作为一个单元格列显示（类似
+    <col>
+    ）
+    table-cell 此元素会作为一个表格单元格显示（类似
+    <td></td>
+    和
+    <th></th>
+    ）
+    table-caption 此元素会作为一个表格标题显示（类似
+    <caption></caption>
+    ）
+    inherit 规定应该从父元素继承display属性的值。(<p></p>)
+</div>
+<div>
+    pc样式问题：
+    1.页面长度超出100%，出现滚动条。自适应页面样式改变？
+</div>

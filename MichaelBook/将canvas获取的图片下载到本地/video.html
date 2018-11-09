@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <style>
+        video, canvas {
+            outline: 1px solid red;
+        }
+    </style>
+    <script type="text/javascript">
+
+        window.addEventListener("DOMContentLoaded", function () {
+            // Grab elements, create settings, etc.
+            var canvas = document.getElementById("canvas"),
+                    context = canvas.getContext("2d"),
+                    video = document.getElementById("video"),
+                    videoObj = {"video": true},
+                    errBack = function (error) {
+                        console.log("Video capture error: ", error.code);
+                    };
+            console.log(navigator);
+            if (!navigator.getUserMedia) { // Standard
+                navigator.getUserMedia(videoObj, function (stream) {
+                    video.src = stream;
+                    video.play();
+                }, errBack);
+            } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed引擎
+                console.log(navigator.webkitGetUserMedia);
+                navigator.webkitGetUserMedia(videoObj, function (stream) {
+                    video.src = window.webkitURL.createObjectURL(stream);
+                    console.log(video.src);
+                    console.log(stream);
+                    video.play();
+                }, errBack);
+            }
+            else if (navigator.mozGetUserMedia) { // Firefox-prefixed
+                navigator.mozGetUserMedia(videoObj, function (stream) {
+                    video.src = window.URL.createObjectURL(stream);
+                    video.play();
+                }, errBack);
+            }
+            var playPromise = document.querySelector('video').play();
+
+            // In browsers that don’t yet support this functionality,
+            // playPromise won’t be defined.
+            if (playPromise !== undefined) {
+                playPromise.then(function () {
+                    console.log("Automatic playback started!");
+                    // Automatic playback started!
+                }).catch(function (error) {
+                    console.log("Automatic playback failed.");
+                    // Automatic playback failed.
+                    // Show a UI element to let the user manually start playback.
+                });
+            }
+
+        }, false);
+    </script>
+</head>
+<body>
+<form id="form1" runat="server">
+    <div>
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="snap">Snap Photo</button>
+        <canvas id="canvas" width="640" height="480"></canvas>
+    </div>
+</form>
+</body>
+</html>

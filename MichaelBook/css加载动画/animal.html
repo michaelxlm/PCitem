@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开门动画</title>
+    <style>
+        .floor {
+            box-sizing: border-box;
+            width: 200px;
+            height: 150px;
+            background-color: #ffffff;
+            font-size: 0; /*解决display：inline-block；中间缝隙问题，也可用：去除标签之间的换行来解决*/
+        }
+
+        .floor span {
+            width: 100px;
+            height: 150px;
+            display: inline-block;
+            background-color: blue;
+            font-size: 16px;
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+
+        .floor span:first-child {
+
+        }
+
+        .floor span:last-child {
+
+        }
+    </style>
+</head>
+<body>
+<div class="floor">
+    <span></span>
+    <span></span>
+</div>
+</body>
+</html>

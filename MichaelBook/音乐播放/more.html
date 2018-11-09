@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../jQuery/jquery-3.2.1.min.js"></script>
+    <style>
+        #img img {
+            margin: 0 auto;
+            display: block;
+        }
+
+        .musicList {
+            height: 500px;
+            overflow-y: scroll;
+        }
+
+        table {
+            width: 30%;
+            margin: 40px;
+        }
+
+        th {
+            text-align: left;
+            width: 25%;
+        }
+
+        #sound {
+            width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #sound h2, #sound audio {
+            margin: 2% 2% 2% 0;
+            vertical-align: middle;
+            display: inline-block;
+        }
+    </style>
+    <script src="js/AudioContext.js"></script>
+</head>
+<body>
+<div id="img">
+</div>
+<div class="musicList">
+    <table>
+        <tr>
+            <th>歌名</th>
+            <th>歌手</th>
+            <th>时长</th>
+            <th>操作</th>
+        </tr>
+        <tbody id="main">
+
+        </tbody>
+    </table>
+
+</div>
+<button type="button" onclick="audioContent()">audioContent</button>
+<div id="sound"></div>
+<a href="http://music.qq.com/miniportal/static/lyric/32/1512932.xml">下载歌词</a>
+<script type="text/javascript">
+    var musicListData = [];
+    $(function () {
+        var url = '';
+        if (false) {
+            /*随机推荐*/
+            url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8¬ice=0&platform=h5&needNewCode=1&tpl=3&page=detail&type=top&topid=36&_=1520777874472';
+        } else if (true) {
+            /*最新音乐*/
+            url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&tpl=3&page=detail&type=top&topid=27&_=1519963122923';
+        } else {
+            /*歌曲搜索*/
+            var val = "菊花台";
+            url = 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp?g_tk=5381&uin=0&format=jsonp&inCharset=utf-8&outCharset=utf-8¬ice=0&platform=h5&needNewCode=1&w=' + val + '&zhidaqu=1&catZhida=1&t=0&flag=1&ie=utf-8&sem=1&aggr=0&perpage=20&n=20&p=1&remoteplace=txt.mqq.all&_=1520833663464'
+        }
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: 'jsonp',
+            jsonp: "jsonpCallback",
+            scriptCharset: 'GBK',//解决中文乱码
+            success: function (data) {
+                //最新音乐数据
+                console.log(data);
+                musicListData = data;
+                var songListHtml = '';
+                for (var i = 0; i < data.songlist.length; i++) {
+                    var mins = timeZero(data.songlist[i].data.interval % 60);
+                    var min = parseInt(data.songlist[i].data.interval / 60);
+                    var time = min + ':' + mins;
+                    songListHtml += '<tr>' +
+                            '<td>' + data.songlist[i].data.albumname + '</td>' +
+                            '<td>' + data.songlist[i].data.singer[0].name + '</td>' +
+                            '<td>' + time + '</td>' +
+                            '<td><button  onclick="beginMusic(' + i + ')">播放</button></td>' +
+                            '</tr>'
+                }
+                $("#main").html(songListHtml);
+                var textImg = '';
+                textImg += '<img src="' + data.topinfo.headPic_v12 + '" alt="">';
+                $("#img").html(textImg)
+            },
+            error: function (e) {
+                console.log('error');
+            }
+        });
+    });
+    /**/
+    function getlyric(songmid) {
+        $.ajax({
+
+            url: 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg?callback=MusicJsonCallback_lrc&pcachetime=' + new Date().getTime() + '&songmid=' + songmid + '&g_tk=1707535217&jsonpCallback=MusicJsonCallback_lrc&loginUin=2437618868&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0',
+
+            /*
+             url: 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&_='+ new Date(),
+             */
+            type: "get",
+            headers: {
+                'accept': 'application/json',
+                'authority': 'c.y.qq.com',
+                'origin': 'https://m.y.qq.com',
+                'referer': 'https://m.y.qq.com/',
+                'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1'
+            },
+            scriptCharset: 'GBK',//解决中文乱码
+            dataType: 'jsonp',
+            jsonp: "jsonpCallback",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (e) {
+                console.log('error');
+            }
+        });
+    }
+    function MusicJsonCallback_lrc(data) {
+        console.log(data);
+    }
+    function timeZero(ele) {
+        if (ele > 9) {
+            return ele
+        } else {
+            return '0' + ele;
+        }
+    }
+    /*播放音乐*/
+    function beginMusic(i) {
+        var musicHTML = '';
+        /*音乐名*/
+        var songName = musicListData.songlist[i].data.albumname;
+        musicHTML += '<h2>音乐名：' + songName + '</h2>';
+        /*歌手*/
+        var singerList = musicListData.songlist[i].data.singer;
+        var singerText = '';
+        if (singerList.length > 0) {
+            singerText += '<h2>歌手：';
+            for (var s = 0; s < singerList.length; s++) {
+                singerText += singerList[s].name;
+            }
+            singerText += '</h2>';
+        }
+        musicHTML += singerText;
+        /*歌曲播放*/
+        var songmid = musicListData.songlist[i].data.songmid;
+        var soundUrl = 'http://ws.stream.qqmusic.qq.com/C100' + songmid + '.m4a?fromtag=0&guid=126548448';
+        console.log(soundUrl);
+        musicHTML += '<audio controls autoplay onended="onEndED(' + i + ')"><source src="' + soundUrl + '" type="audio/ogg"> <source src="' + soundUrl + '" type="audio/mpeg"> </audio>';
+        $("#sound").html(musicHTML);
+        getlyric(songmid);
+    }
+    /*循环播放下一曲*/
+    function onEndED(i) {
+        if (musicListData.songlist.length <= i) {
+            beginMusic(0);
+        } else {
+            beginMusic(i + 1);
+        }
+    }
+
+
+</script>
+</body>
+</html>

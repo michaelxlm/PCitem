@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算两个时间的差值</title>
+</head>
+<body>
+<script>
+    /*计算两个时间的天数差值*/
+    function GetDateDiff(startDate,endDate) {
+        var startTime = new Date(Date.parse(startDate.replace(/-/g,"/"))).getTime();
+        var endTime = new Date(Date.parse(endDate.replace(/-/g,"/"))).getTime();
+        var dates = Math.abs((startTime - endTime))/(1000*60*60*24);
+        if(startTime<endTime){
+            dates=-1;
+        }
+        return  dates;
+    };
+    /**
+     * 长城
+     *
+     * 计算日期和当前时间之间相差的天数
+     * @param clacDate
+     * @returns 相差的天数，如果传入的日期是空的，就返回-1
+     */
+    function countDays(clacStr) {
+        if (clacStr == "" || clacStr == null) {
+            return -1;
+        }
+        //要计算的日期
+        var calcDate = Date.parse(new Date(clacStr));
+        //当前的时间,去掉时分秒
+        var date = new Date();
+        var currentYear = date.getFullYear();
+        var currentMonth = date.getMonth() + 1;
+        var cuttentDay = date.getDate();
+        if (currentMonth < 10) {
+            currentMonth = "0" + currentMonth;
+        }
+        if (cuttentDay < 10) {
+            cuttentDay = "0" + cuttentDay;
+        }
+        curDateStr = currentYear + "-" + currentMonth + "-" + cuttentDay;
+        var curDate = Date.parse(new Date(curDateStr));
+        var days = Math.abs((curDate - calcDate) / 24 / 60 / 60 / 1000) + 1;
+        return days;
+    }
+/*计算两个时间相差*/
+function time() {
+    var date1= '2015/05/01 00:00:00';  //开始时间
+    var date2 = new Date();    //结束时间
+    var date3 = date2.getTime() - new Date(date1).getTime();   //时间差的毫秒数
+    //计算出相差天数
+    var days=Math.floor(date3/(24*3600*1000));
+    //计算出小时数
+    var leave1=date3%(24*3600*1000);    //计算天数后剩余的毫秒数
+    var hours=Math.floor(leave1/(3600*1000));
+    //计算相差分钟数
+    var leave2=leave1%(3600*1000);        //计算小时数后剩余的毫秒数
+    var minutes=Math.floor(leave2/(60*1000));
+    //计算相差秒数
+    var leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
+    var seconds=Math.round(leave3/1000);
+    alert(" 相差 "+days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒")
+}
+</script>
+<script>
+    var months=6;//几个月后
+    var effectDate='2018年8月31日';//任意时间
+    var time=effectDate.replace(/年/g,"-").replace(/月/g,"-").replace(/日/g,"");
+    var newTime=monthChange(time,months);//获取的几个月后时间
+    console.log(newTime);
+    /*获取n个自然月后的日期
+     * date:当前任意日期
+     * num：月数
+     * */
+    function monthChange(date,num) {
+        var newDate=new Date(date);
+        var year = newDate.getFullYear();
+        var month = newDate.getMonth() + num+1;//获取当前月份的日期
+        if (month>12){
+            for(var i=0,j=Math.floor(month/12);i<j;i++){
+                year++;
+                month -= 12;
+            }
+        }
+        if(month<10){
+            month="0"+month;
+        }
+        var date2=new Date(year,month,0);//新的年月
+        var day1=newDate.getDate();
+        var day2=date2.getDate();
+        if(day1>day2){  //防止+6月后没有31天
+            day1=day2;
+        }
+        return year + '-' + month + '-' + day1;
+    }
+
+
+</script>
+</body>
+</html>

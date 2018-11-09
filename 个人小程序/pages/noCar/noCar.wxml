@@ -1,0 +1,18 @@
+<view class='useFail'>
+    <view class="top">
+        <view class='btn'>
+            <image src='../../images/noCarBg.png' mode='widthFix'></image>
+        </view>
+    </view>
+    <text class="text">您还没有绑定车牌哦。</text>
+    <button bindtap="bindCar">去绑定</button>
+</view>
+<view class='rule'>
+  <text bindtap='showAlertup'>车牌绑定规则</text>
+</view>
+<alert id='alert' 
+    title='车牌绑定规则' 
+    content='1.一个车牌号只能被一个手机号绑定' 
+    contentAnother='2.一个手机号可绑定一个车牌号'
+    bind:success="_success">
+</alert>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AudioContext自动播放</title>
+</head>
+<body>
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.abort();
+    xhr.open("get", 'MP3/3104.mp3');   // 文件位于media文件夹下，要获取的音频文件名为 name
+    xhr.responseType = "arraybuffer"; //返回类型设置为
+    xhr.onload = function () {
+        console.log(xhr.response);  //ArrayBuffer 类型的返回数据
+        var ac = new window.AudioContext();
+        ac.decodeAudioData(xhr.response).then(function (buffer) {
+            var bufferSource = ac.createBufferSource();
+            bufferSource.buffer = buffer;
+            bufferSource.connect(ac.destination);
+            bufferSource[bufferSource.start ? "start" : "noteOn"](0);  //播放
+        }, function (err) {
+            console.log(err)
+        })
+    };
+    xhr.send();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/carNumber/carNumber",
+    "pages/noCar/noCar",
+    "pages/useSuccess/useSuccess",
+    "pages/useFailCar/useFailCar",
+    "pages/useFail/useFail",
+    "pages/mine/mine",
+    "pages/feedback/feedback"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "流浪大叔",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  }
+}

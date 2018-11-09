@@ -1,0 +1,16 @@
+<div id="jsonDiv">
+    <textarea name="knowIdText" id="knowIdText" cols="30" rows="10"></textarea>
+    <textarea></textarea>
+    <input type="button" onclick="knowButton()" value="获取">
+    <div id="knowShow"></div>
+</div>
+<script type="text/javascript">
+    var knowIdText = document.getElementById("knowIdText");
+    var knowShow = document.getElementById("knowShow");
+    var re = new RegExp("\n", "g");
+    /*全部换行符正则*/
+    function knowButton() {
+        console.log(JSON.stringify(knowIdText.value));
+        knowShow.innerHTML = knowIdText.value.replace(re, "<br/>");
+    }
+</script>

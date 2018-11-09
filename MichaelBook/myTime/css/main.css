@@ -1,0 +1,182 @@
+*, body, html, div, p, h1, h2, h3, h4, h5, h6, span, ul, ol, li, table, tr, td，th, img, video, object, q {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word; /*自动换行*/
+    word-break: break-all; /*自动换行*/
+}
+
+/*保持文本不换行，超出部分已省略号显示*/
+.ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+}
+
+/*p标签首行缩进两个字符*/
+p {
+    text-indent: 2em;
+}
+/*让tr可书写边框*/
+table {
+    border-collapse: collapse;
+}
+/*css代码显示框样式*/
+.cssTextShow {
+    color: brown;
+    border-radius: 8px;
+    background-color: #cccccc;
+    padding: 2%;
+    margin: 2%;
+    box-sizing: border-box;
+    height: auto;
+}
+
+/*去除Chrome等浏览器文本框默认发光边框*/
+input:focus, textarea:focus, select:focus, button:focus {
+    outline: none;
+}
+
+/*去除IE10+浏览器文本框后面的小叉叉*/
+input::-ms-clear {
+    display: none;
+}
+
+/*禁止多行文本框textarea拖拽*/
+textarea {
+    resize: none;
+}
+
+/*隐藏滚动条开始*/
+html {
+    overflow-y: scroll;
+}
+
+:root {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+:root body {
+    position: absolute;
+}
+
+body {
+    width: 100vw;
+}
+
+/*隐藏滚动条结束*/
+/*设置table边框*/
+table, td, tr {
+    border: 1px solid orange;
+}
+
+/*页面布局-背景色*/
+body {
+    background-color: #eeeeee;
+    font-size: 70%;
+}
+
+/*首页导航*/
+#header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 5rem;
+    display: block;
+    height: 100%;
+}
+
+#header div {
+    width: 100%;
+    display: block;
+}
+
+#header div a {
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    padding: 0 2%;
+    display: inline-block;
+    color: white;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#header div a:nth-child(2n) {
+    background-color: orange;
+}
+
+#header div a:nth-child(2n-1) {
+    background-color: #C13E3E;
+}
+
+#header div a:hover {
+    color: white;
+    background-color: mediumorchid;
+}
+
+.mainDiv {
+    margin-left: 5rem;
+}
+
+/*嵌入页面样式*/
+#mainContent {
+    width: 80%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 1%;
+}
+
+/*兼容性部分*/
+#compatible {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+#compatible table {
+    width: 94%;
+    margin: 3%;
+}
+
+#compatible tr:hover {
+    background-color: orange !important;
+    color: white;
+}
+
+#compatible tr:nth-child(n) {
+    background-color: #ccc;
+}
+
+#compatible tr:nth-child(2n-1) {
+    background-color: white;
+}
+
+#compatible th {
+    height: 50px;
+}
+
+/*五角星评价特效*/
+
+.page {
+    display: none;
+    width: 100%;
+}
+
+.active {
+    display: block !important;
+}
+
+/*媒体查询自适应*/
+@media only screen and (max-width: 400px) {
+    body {
+        background-color: lightblue;
+    }
+}

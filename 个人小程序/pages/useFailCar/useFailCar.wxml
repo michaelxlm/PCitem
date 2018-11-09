@@ -1,0 +1,9 @@
+<view class='useFail'>
+    <view class="top">
+        <view class='btn'>
+            <image src='/images/fail.png' mode='widthFix'></image>
+        </view>
+        <text>使用失败</text>
+    </view>
+    <text class="text">您的车辆不再场内，请重新确认。</text>
+</view>

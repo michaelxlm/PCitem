@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>半圆形进度条</title>
+    <style>
+        .top {
+            width: 176px;
+            height: 180px;
+            position: absolute;
+            transition: 2.5s ease-out;
+            transform: rotate(0deg);
+        }
+
+        .top img {
+            margin: 80px 0 0 5px;
+            position: absolute;
+            z-index: 999;
+            width: 10px;
+            height: 30px;
+            transform: rotate(90deg);
+            display: inline-block;
+        }
+
+        .schedule {
+            position: relative;
+            background: url("back.png") no-repeat;
+            height: 100px;
+            width: 180px;
+            margin: 20px;
+        }
+
+        .right {
+            left: 300px;
+        }
+
+        .schedule .num {
+            position: absolute;
+            top: 60px;
+            font-size: 25px;
+            left: 60px;
+            color: green;
+            font-weight: 600;
+        }
+
+        .schedule p {
+            text-align: center;
+            position: absolute;
+            top: 80px;
+            width: 100%;
+            color: #3c3c3c;
+        }
+
+        .schedule span {
+            position: absolute;
+            font-size: 12px;
+        }
+
+        .schedule span:nth-child(2) {
+            left: -26px;
+            top: 85px;
+        }
+
+        .schedule span:nth-child(3) {
+            left: -18px;
+            top: 34px;
+        }
+
+        .schedule span:nth-child(4) {
+            left: 20px;
+            top: -6px;
+        }
+
+        .schedule span:nth-child(5) {
+            left: 80px;
+            top: -20px;
+        }
+
+        .schedule span:nth-child(6) {
+            left: 128px;
+            top: -10px;
+        }
+
+        .schedule span:nth-child(7) {
+            left: 170px;
+            top: 26px;
+        }
+
+        .schedule span:nth-child(8) {
+            left: 185px;
+            top: 77px;
+        }
+    </style>
+    <script src="../../jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+<div class="schedule right">
+    <div id="top-score2" class="top">
+        <img src="point.png"/>
+    </div>
+    <span>-45</span>
+    <span>-30</span>
+    <span>-15</span>
+    <span>0</span>
+    <span>15</span>
+    <span>30</span>
+    <span>45</span>
+    <div class="num">-15</div>
+    <p>排风机</p>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var textScore = (45 + 45) / 90 * 100;
+        textScore = 'rotate' + '(' + ((textScore / 100) * 180 + 'deg') + ')';
+        $('#top-score').css('transform', textScore);
+        var textScore2 = (15 + 45) / 90 * 100;
+        textScore2 = 'rotate' + '(' + ((textScore2 / 100) * 180 + 'deg') + ')';
+        $('#top-score2').css('transform', textScore2);
+    });
+</script>
+</body>
+</html>

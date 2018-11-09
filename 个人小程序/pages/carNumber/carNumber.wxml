@@ -1,0 +1,26 @@
+<view class='container-login'>
+  <image src='../../images/carBg.png' style='width:100%;'></image>
+  <view class='login-wrapper'>
+    <view class='free-text'>免费停车券</view>
+    <view class='car-list' wx:for="{{carNumberList}}" bindtap='carNumberClick' data-carnumber="{{item.carNumber}}">
+      {{item.carNumber}}
+      <image src='../../images/delete.png' catchtap='deleteCar' data-carnumber="{{item.carNumber}}"></image>
+    </view>
+    <form hidden="{{showAdd}}">
+      <view class='number-input'>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{provinceArray}}">
+          <view class="picker">
+            <text>{{provinceArray[index]}}</text>
+            <image src='../../images/down.png'></image>
+          </view>
+        </picker>
+        <view class='carInput'>
+          <input class='input-car' maxlength='6' placeholder-class='place-holder' type='text' placeholder='请输入车牌号' bindinput='carInput' value="{{carNumber}}"/>
+        </view>
+      </view>
+      <view>
+        <button class='btn-next' bindtap='addClick'>确认</button>
+      </view>
+    </form>
+  </view>
+</view>

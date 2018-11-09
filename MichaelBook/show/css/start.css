@@ -1,0 +1,43 @@
+.startDiv {
+    box-sizing: border-box;
+    width: 400px;
+    height: 250px;
+    border: 1px solid #cccccc;
+    margin: 0 auto;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.startDiv .top {
+    border-top: 80px solid #ededed;
+    border-left: 200px solid transparent;
+    border-right: 200px solid transparent;
+}
+
+.Heartbeat {
+    margin: -20px auto 0 auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-color: red;
+    transform: rotate(45deg);
+}
+
+.Heartbeat:after, .Heartbeat:before {
+    position: absolute;
+    content: '';
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.Heartbeat:after {
+    top: -20px;
+    left: 0;
+}
+
+.Heartbeat:before {
+    left: -20px;
+}
