@@ -1,0 +1,67 @@
+.wrapper {
+    width:160px;
+    height:80px;
+    overflow:hidden;
+    position:relative;
+}
+.proWrapper {
+    box-sizing:border-box;
+    border:20px solid #ebf4f7;
+    border-top-left-radius:80px;
+    border-top-right-radius:80px;
+    width:160px;
+    height:80px;
+    border-bottom:none;
+}
+.progress {
+    position:relative;
+    top:-80px;
+    z-index:10;
+    height:80px;
+    width:160px;
+    border:20px solid #6fd25f;
+    box-sizing:border-box;
+    border-top-left-radius:80px;
+    border-top-right-radius:80px;
+    border-bottom:none;
+    transform-origin: 50%  100%;
+    transform: rotate(-45deg);
+    transition: all 1s;
+}
+.progress .circle {
+    z-index: 200;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background: #6fd25f;
+    position:absolute;
+    right:-20px;
+    bottom:-10px;
+}
+.progress .font{
+    position:absolute;
+    right:-23px;
+    bottom:0px;
+    transform: rotate(79deg);
+    z-index: 202;
+    color: #ffffff;
+    font-size: 14px;
+}
+.leftCircle{
+    width: 20px;
+    height: 20px;
+    background: #6fd25f;
+    border-radius: 100%;
+    position: absolute;
+    top: 78px;
+    left: 8px;
+}
+.rightCircle{
+    width: 20px;
+    height: 20px;
+    background: #ebf4f7;
+    border-radius: 100%;
+    position: absolute;
+    top: 78px;
+    left: 148px;
+}

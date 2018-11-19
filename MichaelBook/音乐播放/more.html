@@ -37,7 +37,6 @@
             display: inline-block;
         }
     </style>
-    <script src="js/AudioContext.js"></script>
 </head>
 <body>
 <div id="img">
@@ -56,7 +55,6 @@
     </table>
 
 </div>
-<button type="button" onclick="audioContent()">audioContent</button>
 <div id="sound"></div>
 <a href="http://music.qq.com/miniportal/static/lyric/32/1512932.xml">下载歌词</a>
 <script type="text/javascript">
@@ -109,7 +107,6 @@
     /**/
     function getlyric(songmid) {
         $.ajax({
-
             url: 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg?callback=MusicJsonCallback_lrc&pcachetime=' + new Date().getTime() + '&songmid=' + songmid + '&g_tk=1707535217&jsonpCallback=MusicJsonCallback_lrc&loginUin=2437618868&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0',
 
             /*
