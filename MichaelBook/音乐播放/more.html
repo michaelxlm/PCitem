@@ -160,7 +160,7 @@
         musicHTML += singerText;
         /*歌曲播放*/
         var songmid = musicListData.songlist[i].data.songmid;
-        var soundUrl = 'http://ws.stream.qqmusic.qq.com/C100' + songmid + '.m4a?fromtag=0&guid=126548448';
+        var soundUrl = 'http://ws.stream.qqmusic.qq.com/C100' + songmid + '.m4a?fromtag=0&guid=6054053016';
         console.log(soundUrl);
         musicHTML += '<audio controls autoplay onended="onEndED(' + i + ')"><source src="' + soundUrl + '" type="audio/ogg"> <source src="' + soundUrl + '" type="audio/mpeg"> </audio>';
         $("#sound").html(musicHTML);
@@ -174,8 +174,6 @@
             beginMusic(i + 1);
         }
     }
-
-
 </script>
 </body>
 </html>
