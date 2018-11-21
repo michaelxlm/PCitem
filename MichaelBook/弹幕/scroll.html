@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹幕文本</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .mainPage {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 200px;
+            -webkit-animation: 10s rowup linear infinite normal;
+            animation: 10s rowup linear infinite normal;
+        }
+        .mainPage span{
+            margin: 0 10px;
+            line-height: 30px;
+            height: 30px;
+        }
+
+        .add {
+            margin-top: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="mainPage">
+    <div id="wordArea"></div>
+</div>
+<div class="add">
+    <span>新增弹幕：</span>
+    <input type="text" id="addText"/>
+    <span>优先级：</span>
+    <select name="priority" id="priority">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    <button type="button" id="addTextButton">发送</button>
+</div>
+<script type="text/javascript">
+    window.onload = function () {
+        var textList = [];
+        textList.push({
+            text: "你好",
+            priority: "1",
+        });
+        console.log(" 屏幕可用工作区高度：" + window.screen.availHeight + "\n");
+        console.log(" 屏幕可用工作区宽度：" + window.screen.availWidth + "\n");
+        addKeyFrames(window.screen.availWidth);
+        var wordArea = document.getElementById('wordArea');//弹幕层
+        var addTextVal = document.getElementById('addText');//新增弹幕
+        var priority = document.getElementById('priority');//优先级
+        var addTextButton = document.getElementById('addTextButton');//发送按钮
+        addTextButton.onclick = function () {
+            textList.push({
+                text: addTextVal.value,
+                priority: priority.value,
+            });
+            showList();
+        };
+        for (var i = 0; i < 30; i++) {
+            showList();
+        }
+        function showList() {
+            var newNotes = document.createElement('span');
+            newNotes.innerHTML = textList[0].text;
+            wordArea.appendChild(newNotes);
+        }
+
+        //this.ListTimeout = setInterval(showList, 100);
+    };
+    window.onunload = function () {
+        //this.ListTimeout && clearTimeout(this.ListTimeout);
+    };
+    // 设置keyframes属性
+    function addKeyFrames(y) {
+        var wordArea = document.getElementById('wordArea');//弹幕层
+        console.log(wordArea.clientWidth);
+        var moreWidth=10;
+        if(wordArea.clientWidth>y){
+            moreWidth=wordArea.clientWidth-y+10;
+        }
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        y = y + moreWidth;
+        var keyFrames = '\
+    @-webkit-keyframes rowup {\
+        0% {\
+            -webkit-transform: translate3d(A_DYNAMIC_VAL, 0, 0);\
+            transform: translate3d(A_DYNAMIC_VAL, 0, 0);\
+        }\
+        100% {\
+            -webkit-transform: translate3d(A_DYNAMIC_VALUE,0, 0);\
+            transform: translate3d(A_DYNAMIC_VALUE,0, 0);\
+        }\
+    }\
+    @keyframes rowup {\
+        0% {\
+            -webkit-transform: translate3d(A_DYNAMIC_VAL, 0, 0);\
+            transform: translate3d(A_DYNAMIC_VAL, 0, 0);\
+        }\
+        100% {\
+            -webkit-transform: translate3d(A_DYNAMIC_VALUE,0, 0);\
+            transform: translate3d(A_DYNAMIC_VALUE,0, 0);\
+        }\
+    }';
+        console.log(y);
+        style.innerHTML = keyFrames.replace(/A_DYNAMIC_VALUE/g, -y + "px").replace(/A_DYNAMIC_VAL/g, y + "px");
+        document.getElementsByTagName('head')[0].appendChild(style);
+    }
+</script>
+</body>
+</html>
