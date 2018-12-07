@@ -23,7 +23,9 @@
             -webkit-animation: 10s rowup linear infinite normal;
             animation: 10s rowup linear infinite normal;
         }
-        .mainPage span{
+
+        .mainPage span, .mainPage h1, .mainPage h2, .mainPage h3 {
+            display: inline-block;
             margin: 0 10px;
             line-height: 30px;
             height: 30px;
@@ -64,18 +66,26 @@
         var priority = document.getElementById('priority');//优先级
         var addTextButton = document.getElementById('addTextButton');//发送按钮
         addTextButton.onclick = function () {
-            textList.push({
+            var objectVAL = {
                 text: addTextVal.value,
                 priority: priority.value,
-            });
-            showList();
+            };
+            textList.push(objectVAL);
+            showList(objectVAL);
         };
         for (var i = 0; i < 30; i++) {
-            showList();
+            showList(textList[0]);
         }
-        function showList() {
-            var newNotes = document.createElement('span');
-            newNotes.innerHTML = textList[0].text;
+        function showList(objectVAL) {
+            var newNotes;
+            if (objectVAL.priority == '1') {
+                newNotes = document.createElement('h1');
+            } else if (objectVAL.priority == '2') {
+                newNotes = document.createElement('h2');
+            } else if (objectVAL.priority == '3') {
+                newNotes = document.createElement('h3');
+            }
+            newNotes.innerHTML = objectVAL.text;
             wordArea.appendChild(newNotes);
         }
 
@@ -88,9 +98,9 @@
     function addKeyFrames(y) {
         var wordArea = document.getElementById('wordArea');//弹幕层
         console.log(wordArea.clientWidth);
-        var moreWidth=10;
-        if(wordArea.clientWidth>y){
-            moreWidth=wordArea.clientWidth-y+10;
+        var moreWidth = 10;
+        if (wordArea.clientWidth > y) {
+            moreWidth = wordArea.clientWidth - y + 10;
         }
         var style = document.createElement('style');
         style.type = 'text/css';
@@ -116,7 +126,6 @@
             transform: translate3d(A_DYNAMIC_VALUE,0, 0);\
         }\
     }';
-        console.log(y);
         style.innerHTML = keyFrames.replace(/A_DYNAMIC_VALUE/g, -y + "px").replace(/A_DYNAMIC_VAL/g, y + "px");
         document.getElementsByTagName('head')[0].appendChild(style);
     }
